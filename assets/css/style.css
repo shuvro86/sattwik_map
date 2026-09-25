@@ -6,6 +6,33 @@ header{height:70px}.brand{font-size:22px}.brand-icon{padding:6px;font-size:28px;
 @keyframes float-globe{50%{transform:translateY(-7px)}}@keyframes sparkle{0%,100%{opacity:.5;transform:scale(.8) rotate(0deg)}50%{opacity:1;transform:scale(1.1) rotate(16deg)}}@keyframes buddy{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-8deg)}92%{transform:rotate(8deg)}}@keyframes choice-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes correct-pop{0%{transform:scale(.95)}50%{transform:scale(1.05)}100%{transform:scale(1)}}@keyframes treasure-in{from{opacity:0;transform:translateY(15px) rotate(-3deg) scale(.94)}to{opacity:1;transform:translateY(0) rotate(0) scale(1)}}@keyframes fly-home{0%{opacity:1;transform:scale(1) rotate(0)}55%{opacity:1;transform:scale(.45) rotate(12deg)}100%{opacity:0;transform:scale(.015) rotate(0)}}@keyframes globe-arrival{0%{opacity:0;transform:scale(.35)}60%{opacity:1;transform:scale(1.04)}100%{opacity:1;transform:scale(1)}}@keyframes label-in{from{opacity:0}to{opacity:1}}
 @media(min-width:1500px){main{padding-top:25px}}@media(max-width:1000px){.atlas-layout{grid-template-columns:190px 1fr}.choice{font-size:14px;padding:11px}.header-actions span{display:none}.header-actions button{font-size:20px;padding:9px 12px}.gallery-main .photo-grid{grid-template-columns:1fr 1fr}}@media(max-width:720px){header{height:62px;padding:0 13px}.brand{font-size:18px;gap:6px}.brand-icon{font-size:22px;padding:5px}.brand small{display:none}.header-actions{gap:4px}.header-actions button{padding:8px;font-size:18px}.header-actions span{display:none}main{padding-top:16px}.level-screen .eyebrow{font-size:10px;letter-spacing:1.3px}.level-world{height:118px;width:135px;margin-top:9px}.level-world canvas{width:120px;height:120px}.level-screen h1{font-size:27px}.level-screen>p{font-size:14px}.levels{margin-top:20px;gap:12px}.level{min-height:0;padding:18px}.level strong{font-size:24px}.level-emoji{font-size:30px}.level>span:not(.level-emoji){font-size:14px;line-height:1.5}.level b{font-size:14px}.level em{font-size:14px;margin-top:10px}.welcome h1{font-size:23px}.welcome p{display:none}.welcome{margin:0 0 16px}.music-now{font-size:10px;margin-bottom:12px}.map-stage{min-height:290px}#country{height:280px}#reveal-globe{width:280px;max-width:86%}#location-label{font-size:12px;bottom:8px;padding:8px 12px}.choice{font-size:14px;min-height:71px}.choice .flag{font-size:23px}.clue-dots button{width:40px;height:40px}.atlas-layout{grid-template-columns:1fr}.atlas-list{max-height:150px}.atlas-tabs{top:0}.photo-grid{gap:12px}.photo-card img{height:135px}.photo-card figcaption{padding:10px}.photo-card strong{font-size:12px}.big-flag{font-size:100px}.gallery-main .photo-grid{grid-template-columns:1fr}.gallery-hero{gap:15px}.gallery-hero h1{font-size:26px}.gallery-hero .big-flag{font-size:65px}.gallery-main .photo-card img{height:250px}.atlas-dialog>p{font-size:14px}.atlas-dialog{padding:20px}.gallery-main footer{font-size:12px}.fact-grid{gap:10px}.fact-grid dd{font-size:14px}.fact-grid dt{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.revealing #country{opacity:0;animation:none!important}.revealing #reveal-globe{opacity:1;visibility:visible;animation:none!important}#location-label{opacity:1}}
+/* Keep the explorer frame in place while its country panes scroll independently. */
+.atlas-dialog{flex-direction:column;width:min(1120px,96vw);height:min(88vh,900px);height:min(88dvh,900px);max-height:unset;overflow:hidden;overscroll-behavior:contain}
+.atlas-dialog[open]{display:flex}
+.atlas-dialog>.close{position:absolute;top:18px;right:20px;float:none;z-index:3}
+.atlas-dialog>h2,.atlas-dialog>p,.atlas-dialog>label,#country-search,#atlas-count{flex:0 0 auto}
+.atlas-dialog>h2{padding-right:46px}
+.atlas-dialog>label{margin:12px 0 7px}
+.atlas-dialog>#atlas-count{margin:7px 0 10px}
+.atlas-layout{flex:1 1 auto;min-height:0;overflow:hidden;grid-template-rows:minmax(0,1fr)}
+.atlas-list{min-height:0;max-height:none;overscroll-behavior:contain}
+#atlas-detail{min-width:0;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#c5addf transparent;padding:2px 8px 4px 2px}
+.atlas-tabs{top:0}
+@media(max-width:720px){
+ .atlas-dialog{width:calc(100vw - 16px);height:calc(100vh - 16px);height:calc(100dvh - 16px);padding:20px 16px 14px;border-radius:22px}
+ .atlas-dialog>.close{top:13px;right:14px}
+ .atlas-dialog>h2{font-size:22px;padding-right:38px;margin:0 0 3px}
+ .atlas-dialog>p{margin:4px 0 8px;line-height:1.4}
+ .atlas-dialog>label{margin:8px 0 6px}
+ .atlas-dialog>#atlas-count{margin:5px 0 8px}
+ .atlas-layout{display:flex;flex-direction:column;gap:10px}
+ .atlas-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:6px;height:clamp(86px,15vh,138px);height:clamp(86px,15dvh,138px);max-height:none;flex:0 0 auto;padding:2px;overflow:auto}
+ .atlas-list button{min-height:44px;padding:9px;font-size:14px;overflow-wrap:anywhere}
+ #atlas-detail{flex:1 1 auto;width:100%;padding:0 4px 8px 0}
+ #atlas-detail svg{height:190px}
+ .atlas-tabs{padding-bottom:10px}
+ .atlas-tabs button{min-height:44px;padding:11px 8px;font-size:13px}
+}
 
 /* 2.1 cinematic country landing and canvas-responsive globe sizing */
 .level-world{width:clamp(190px,18vw,250px);height:clamp(180px,17vw,240px);margin:8px auto 4px}

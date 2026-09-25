@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
 **Last updated:** 25 September 2026  
-**Version:** 2.3.1, discovery clues edition  
+**Version:** 2.3.2, responsive explorer edition
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -88,7 +88,7 @@ Music stops for revealed answers, the picker, pause, hidden tabs, and dialogs. M
 
 A search box finds names and aliases. Selecting a country shows a map, a large flag, and a colorful fact grid with dated population, region, capitals, languages, area, currencies, coastline, and neighboring countries. A source link sits beside the population information.
 
-The explorer has keyboard-accessible **Map & facts** and **Picture adventure** tabs. A dedicated link opens that country’s gallery in a separate browser tab. Galleries show at least ten distinct country-specific photo records, with descriptive captions, author attribution, individual licenses, and source links. Images load lazily, with fixed aspect ratios, and offer retry/source links when the network or upstream host fails. No account, third-party scripts, or live arbitrary image search is used at play time.
+The explorer opens in a viewport-fitted dialog. Its search and title remain in place while the country list and detail pane scroll independently; on phones, the country list becomes a compact two-column picker above the detail pane. Selecting a country or reopening the explorer resets its scroll position. The explorer has keyboard-accessible **Map & facts** and **Picture adventure** tabs. A dedicated link opens that country’s gallery in a separate browser tab. Galleries show at least ten distinct country-specific photo records, with descriptive captions, author attribution, individual licenses, and source links. Images load lazily, with fixed aspect ratios, and offer retry/source links when the network or upstream host fails. No account, third-party scripts, or live arbitrary image search is used at play time.
 
 Photographs are sourced from Wikimedia Commons. The refresh script checks country-name/location relevance and filters potentially unsuitable or non-photographic metadata. This is metadata-based selection, not a guarantee that every image has received human visual review. External image availability and content can change; adults can review or replace individual records in `assets/js/photos.js`.
 
@@ -141,7 +141,7 @@ Automated tests cover:
 - Twelve original tracks, shuffle-bag selection, audio scheduling, discovery cadence, mute, pause, and volume.
 - At least ten unique photo records per country, each with a supported Wikimedia source URL, author and license.
 
-Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, and responsive phone/desktop layouts. Automated audio tests confirm scheduling/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
+Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, responsive phone/desktop layouts, and independent explorer list/detail scrolling. Automated audio tests confirm scheduling/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
 
 ### Verification snapshot — 25 September 2026
 
@@ -185,6 +185,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 25 September 2026 — Version 2.3.2
+
+Reworked the Country Explorer dialog to fit within the available desktop or phone viewport. Kept its search controls visible and gave the country list and country details separate, contained scrolling areas; on phones, the picker uses a compact two-column grid above the details. Added scroll resets when changing selection or reopening the explorer, keyboard-focusable and touch-sized selection/reading panes, and cache-version updates. Automated tests passed. A fresh visual check could not be completed because Chrome UI control was repeatedly redirected by concurrent browser activity.
 
 ### 25 September 2026 — Version 2.3.1
 
