@@ -1,0 +1,10 @@
+.env
+.env.*
+.cache/
+.git/
+.DS_Store
+__pycache__/
+docs/
+tests/
+scripts/
+AGENTS.md

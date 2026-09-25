@@ -20,7 +20,13 @@ python3 -m http.server 5173 --bind 127.0.0.1
 npm start
 ```
 
-Open `http://localhost:5173`. The server binds only to the local machine. No public deployment has been configured. A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. Gallery images require internet. Maps, facts, game logic, and synthesized music are local. Browser speech support and whether voices require connectivity depend on the platform.
+Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. Gallery images require internet. Maps, facts, game logic, and synthesized music are local. Browser speech support and whether voices require connectivity depend on the platform.
+
+### Vercel hosting
+
+Deploy with `vercel deploy --prod` from this directory using an authorized Vercel account. `vercel.json` serves the static project directly without a build step. `.vercelignore` excludes local environment files, caches, Git metadata, maintenance scripts, tests, and internal documentation from deployment; `.vercel/` is ignored by Git. No environment variables are required.
+
+The initial production deployment on 25 September 2026 succeeded through the CLI. Vercel could not connect the GitHub repository automatically, so Git-triggered deployments are not configured. The homepage and gallery returned HTTP 200, and `/.env` returned HTTP 404. `npm test` passed before deployment.
 
 ## Coverage and educational data
 
@@ -114,6 +120,8 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `tests/run.cjs` | Game lifecycle, randomized choices, timers, answer handling, and completion checks. |
 | `tests/data.cjs` | All-country geometry/fact/population/gallery completeness and source checks. |
 | `tests/audio.cjs` | Track count, random selection, scheduling, pause, mute, and volume checks. |
+| `vercel.json` | Static Vercel hosting configuration without a build step. |
+| `.vercelignore` | Excludes local configuration and maintenance files from deployment. |
 | `package.json` | Convenience start and test scripts; no dependencies. |
 | `AGENTS.md` | Project instructions, including mandatory documentation maintenance. |
 | `docs/PROJECT.md` | This living project reference. |
@@ -165,7 +173,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ## Known limits
 
-- This is a static local application, not an installable mobile app or a public hosted service.
+- This is a static application available locally and on Vercel, not an installable mobile app.
 - Session discoveries are not stored across browser refreshes.
 - The 195-country convention excludes dependencies and other entities outside the chosen scope.
 - Maps are simplified, may reflect disputed boundaries, and do not compare countries to a shared flat-map scale.
@@ -175,6 +183,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 25 September 2026 — Vercel production deployment
+
+With owner approval, deployed the application to https://sattwik-map.vercel.app. Added static hosting configuration and upload exclusions, and ignored local Vercel project metadata. All automated tests passed; live homepage/gallery returned HTTP 200 and local environment configuration was not served. GitHub automatic deployment linking failed; CLI deployment remains available.
 
 ### 25 September 2026 — GitHub repository maintenance
 
