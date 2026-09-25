@@ -1,0 +1,10 @@
+{
+  "name": "sattwiks-world",
+  "version": "2.3.0",
+  "private": true,
+  "description": "A colorful, accessible country adventure for Sattwik",
+  "scripts": {
+    "start": "python3 -m http.server 5173 --bind 127.0.0.1",
+    "test": "node tests/run.cjs && node tests/data.cjs && node tests/audio.cjs"
+  }
+}
