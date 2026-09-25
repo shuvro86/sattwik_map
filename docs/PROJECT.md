@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
 **Last updated:** 25 September 2026  
-**Version:** 2.3.0, organized project edition  
+**Version:** 2.3.1, discovery clues edition  
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -48,8 +48,8 @@ All levels cover all 195 countries and display **exactly four distinct answer op
 
 | Level | Help and challenge |
 | --- | --- |
-| Easy | Four country names with flag emojis. First clue identifies the flag; later clues introduce geography and the name. |
-| Medium | Four country names without flag assistance. Clues introduce geography, a capital, and name hints. |
+| Easy | Four country names with flag emojis. First clue shares an animal, landmark, shape, or border fact; later clues introduce region, capital, and name hints. |
+| Medium | Four country names without flag assistance. Clues introduce an animal, landmark, shape, or border fact, followed by region, capital, and name hints. |
 | High | Four names, preferring distractors in the same subregion, then the same region. An optional answer box remains available for a grown-up. |
 
 Fisher–Yates shuffles the country deck at level selection. There is no fixed first country. When changing levels, already discovered countries are excluded; a still-unanswered country will not be the immediate first question again when another country is available. Each deck visits every remaining country exactly once. Returning to a level starts a newly shuffled deck. Finishing the world returns to the picker; starting another complete adventure resets the session’s discoveries.
@@ -62,9 +62,11 @@ Automatic reveals also earn a discovery star: this is a learning game, not a sco
 
 ### Clue treasure chest
 
-Pip the parrot introduces five treasure clues. By default, clues unlock after 30, 60, 90, 120, and 150 **active** seconds. After another 30 seconds with the fifth clue, the answer reveals at 180 active seconds.
+Pip the parrot introduces five treasure clues. By default, clues unlock after 15, 30, 45, 60, and 75 **active** seconds. After another 15 seconds with the fifth clue, the answer reveals at 90 active seconds.
 
-Each clue is a colorful card with a changing animal and encouragement and an illustrated treasure button. Unlocked treasure buttons replay previous clues. The read-aloud button reads the currently selected clue. “Help me, Pip!” requests the next clue early, consumes one of the same five slots, and restarts the 30-second wait. It cannot create a sixth clue or reveal the answer early after the fifth clue. The automatic reveal still gives the fifth clue 30 seconds to try.
+Easy and Medium open with the bundled animal/landmark/shape fact where available (12 countries); other countries introduce a named land neighbor or their lack of land borders. High opens with its world region. No level uses a flag-matching clue. Facts come from the existing bundled country records; no new dataset is introduced.
+
+Each clue is a colorful card with a changing animal and encouragement and an illustrated treasure button. Unlocked treasure buttons replay previous clues. The read-aloud button reads the currently selected clue. “Help me, Pip!” requests the next clue early, consumes one of the same five slots, and restarts the 15-second wait. It cannot create a sixth clue or reveal the answer early after the fifth clue. The automatic reveal still gives the fifth clue 15 seconds to try.
 
 Pause, a hidden browser tab, the level picker, and open dialogs stop the countdown. Returning resumes the remaining time without subtracting the hidden/dialog interval. Resolved questions never keep counting down. Wrong answers do not change clue timing.
 
@@ -183,6 +185,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 25 September 2026 — Version 2.3.1
+
+Replaced Easy’s opening flag-matching clue with a discovery fact and used the same fact-first sequence for Medium. Retained High’s geography-first sequence and the four choices in every level. Changed all clue waits and the final answer wait to 15 active seconds (five clues by 75 seconds; automatic reveal at 90 seconds). Updated visible timer text, progress accessibility values, settings, clue icon, cache versions, and project maintenance instructions. Added regression checks for flag-free clues across all countries/levels and the final wait after manual clues. `npm test` and syntax checks for both modified JavaScript files passed. Desktop Chrome confirmed the new discovery clue, 15-second countdown, four choices, and pause control. Phone-view verification for this release could not be completed because concurrent browser activity repeatedly interrupted UI automation; the earlier responsive QA snapshot remains historical.
 
 ### 25 September 2026 — Vercel production deployment
 
