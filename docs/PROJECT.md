@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
 **Last updated:** 26 September 2026<br>
-**Version:** 2.3.4, clear sound and pause states
+**Version:** 2.3.5, colorful explorer landing
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -40,7 +40,7 @@ World regions distinguish North and South America. France’s flat quiz map show
 
 ### Landing page
 
-The first screen asks Sattwik to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It contains a gently rotating Canvas globe, compact branding, three colorful level cards, and a link to the searchable explorer.
+The first screen asks Sattwik to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It uses a bright layered gradient backdrop, animated sparkles, and a gently floating Canvas globe to create an energetic welcome. Easy, Medium, and High each have their own vivid gradient card, large text, and clear tap target; narrow phone screens stack the cards vertically. Reduced-motion preferences stop the decorative motion. The screen also links to the searchable explorer.
 
 ### Difficulty
 
@@ -185,6 +185,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 26 September 2026 — Version 2.3.5
+
+Restyled the level picker with a colorful gradient backdrop, distinct warm/cool/berry gradients for the three large level cards, star accents, and gentle globe/sparkle motion. At narrow phone widths the cards stack for comfortable reading and tapping. Added reduced-motion overrides, refreshed the stylesheet cache version, and updated this project reference. `npm test` passed; Chrome desktop and 400 px phone views were checked.
 
 ### 26 September 2026 — Version 2.3.4
 
