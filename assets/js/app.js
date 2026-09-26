@@ -54,14 +54,14 @@ function makeChoices(){
  const name=document.createElement('span');name.textContent=c.name;button.append(name);
  button.onclick=()=>{if(resolved||isPaused())return;if(i===index){button.classList.add('correct');finish(true)}else{button.disabled=true;button.classList.add('try-again');$('feedback').textContent='Good try! Let’s look at the other countries.';speak('Good try! Have another guess.')}};$('choices').append(button)}
 }
-function showLevels(){clearTimeout(revealTimer);stopSpeech();AdventureAudio.pause();Globes.reset();level=null;paused=false;last=performance.now();$('play-screen').classList.add('hidden');$('level-screen').classList.remove('hidden');$('pause').disabled=true;$('level-title').setAttribute('tabindex','-1');$('level-title').focus()}
+function showLevels(){clearTimeout(revealTimer);stopSpeech();AdventureAudio.pause();Globes.reset();level=null;paused=false;last=performance.now();$('play-screen').classList.add('hidden');$('level-screen').classList.remove('hidden');$('pause').disabled=true;$('pause').setAttribute('aria-pressed','false');$('pause').setAttribute('aria-label','Pause adventure');$('pause').innerHTML='Ⅱ <span>Pause</span>';$('level-title').setAttribute('tabindex','-1');$('level-title').focus()}
 function chooseLevel(chosen){
  AdventureAudio.unlock().then(syncAudio);level=chosen;paused=false;position=0;
  const unseen=COUNTRIES.map((c,i)=>i).filter(i=>!discovered.has(i));
  if(!unseen.length){discovered.clear();unseen.push(...COUNTRIES.map((c,i)=>i))}
  queue=shuffle(unseen);
  if(queue.length>1&&queue[0]===index){const swap=1+Math.floor(Math.random()*(queue.length-1));[queue[0],queue[swap]]=[queue[swap],queue[0]]}
- index=queue[0];$('level-screen').classList.add('hidden');$('play-screen').classList.remove('hidden');$('pause').disabled=false;$('pause').setAttribute('aria-pressed','false');$('pause').innerHTML='Ⅱ <span>Pause</span>';$('level-badge').textContent=`${level[0].toUpperCase()+level.slice(1)} adventure`;
+ index=queue[0];$('level-screen').classList.add('hidden');$('play-screen').classList.remove('hidden');$('pause').disabled=false;$('pause').setAttribute('aria-pressed','false');$('pause').setAttribute('aria-label','Pause adventure');$('pause').innerHTML='Ⅱ <span>Pause</span>';$('level-badge').textContent=`${level[0].toUpperCase()+level.slice(1)} adventure`;
  start();$('map-title').setAttribute('tabindex','-1');$('map-title').focus();
 }
 function showAtlasCountry(i){
@@ -103,11 +103,11 @@ $('replay').onclick=()=>resolved?Globes.reveal(COUNTRIES[index]):animateMap;
 $('zoom-in').onclick=()=>Globes.zoom(1.4);$('zoom-out').onclick=()=>Globes.zoom(1/1.4);
 $('reveal-globe').addEventListener('wheel',e=>{if(!resolved)return;e.preventDefault();Globes.zoom(e.deltaY<0?1.2:1/1.2)},{passive:false});
 refreshVoices();if('speechSynthesis' in window)window.speechSynthesis.addEventListener?.('voiceschanged',refreshVoices);
-$('sound').onclick=()=>{if(!('speechSynthesis' in window)){$('feedback').textContent='This browser has no reading voice. A grown-up can read the clues.';return}sound=!sound;$('sound').setAttribute('aria-pressed',sound);$('sound').innerHTML=`♬ <span>Voice ${sound?'on':'off'}</span>`;if(sound)speak('Hello, Sattwik! Let’s explore the world!');else stopSpeech()};
+ $('sound').onclick=()=>{if(!('speechSynthesis' in window)){$('feedback').textContent='This browser has no reading voice. A grown-up can read the clues.';return}sound=!sound;$('sound').setAttribute('aria-pressed',sound);$('sound').setAttribute('aria-label',`Spoken clues ${sound?'on':'off'}`);$('sound').innerHTML=`♬ <span>${sound?'ON':'OFF'}</span>`;if(sound)speak('Hello, Sattwik! Let’s explore the world!');else stopSpeech()};
 $('read').onclick=()=>speak(resolved?`This is ${COUNTRIES[index].name}.`:clueCount?activeClues[Math.max(0,viewedClue)]:'Look at the map. Your first clue is on its way.',true);
-$('pause').onclick=()=>{paused=!paused;last=performance.now();$('pause').setAttribute('aria-pressed',paused);$('pause').innerHTML=paused?'▶ <span>Resume</span>':'Ⅱ <span>Pause</span>';for(const b of $('choices').children){if(paused){b.dataset.wasDisabled=String(b.disabled);b.disabled=true}else b.disabled=resolved||b.dataset.wasDisabled==='true'}$('answer').disabled=paused||resolved;$('check').disabled=paused||resolved;if(paused)stopSpeech();updateTimer()};
+ $('pause').onclick=()=>{paused=!paused;last=performance.now();$('pause').setAttribute('aria-pressed',paused);$('pause').setAttribute('aria-label',paused?'Resume adventure':'Pause adventure');$('pause').innerHTML=paused?'▶ <span>Resume</span>':'Ⅱ <span>Pause</span>';for(const b of $('choices').children){if(paused){b.dataset.wasDisabled=String(b.disabled);b.disabled=true}else b.disabled=resolved||b.dataset.wasDisabled==='true'}$('answer').disabled=paused||resolved;$('check').disabled=paused||resolved;if(paused)stopSpeech();updateTimer()};
 $('parents').onclick=()=>{$('settings').showModal();stopSpeech();updateTimer()};$('credits').onclick=()=>{$('credit-dialog').showModal();stopSpeech();updateTimer()};document.querySelectorAll('dialog .close').forEach(b=>b.onclick=()=>b.closest('dialog').close());document.querySelectorAll('dialog').forEach(d=>d.addEventListener('close',()=>{last=performance.now();updateTimer()}));
-$('restart').onclick=()=>{discovered.clear();index=0;paused=false;$('pause').setAttribute('aria-pressed','false');$('pause').innerHTML='Ⅱ <span>Pause</span>';$('settings').close();updateTrail();showLevels()};
+ $('restart').onclick=()=>{discovered.clear();index=0;paused=false;$('pause').setAttribute('aria-pressed','false');$('pause').setAttribute('aria-label','Pause adventure');$('pause').innerHTML='Ⅱ <span>Pause</span>';$('settings').close();updateTrail();showLevels()};
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden)stopSpeech();updateTimer()});
 setInterval(()=>{const now=performance.now(),dt=now-last;last=now;if(!resolved&&!isPaused()){remaining=Math.max(0,remaining-dt);if(remaining<=0)clue()}updateTimer()},200);
 document.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>chooseLevel(b.dataset.level));
@@ -115,7 +115,7 @@ $('change-level').onclick=showLevels;
 document.querySelectorAll('.atlas-open').forEach(b=>b.onclick=()=>{stopSpeech();$('atlas-dialog').showModal();$('atlas-detail').scrollTop=0;$('country-search').value='';filterAtlas();updateTimer()});
 $('country-search').addEventListener('input',filterAtlas);
 $('early-clue').onclick=()=>{if(clueCount<5)clue()};
-$('music').onclick=()=>{AdventureAudio.unlock().then(syncAudio);const enabled=AdventureAudio.toggle();$('music').setAttribute('aria-pressed',enabled);$('music').innerHTML=enabled?'♫ <span>Music on</span>':'♫ <span>Music off</span>';syncAudio()};
+ $('music').onclick=()=>{AdventureAudio.unlock().then(syncAudio);const enabled=AdventureAudio.toggle();$('music').setAttribute('aria-pressed',enabled);$('music').setAttribute('aria-label',`Adventure music ${enabled?'on':'off'}`);$('music').innerHTML=`♫ <span>${enabled?'ON':'OFF'}</span>`;syncAudio()};
 $('music-volume').oninput=e=>AdventureAudio.volume(Number(e.target.value)/100);
 $('skip-track').onclick=()=>AdventureAudio.skip();
 showLevels();

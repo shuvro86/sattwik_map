@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
 **Last updated:** 26 September 2026<br>
-**Version:** 2.3.3, warm voice and globe zoom
+**Version:** 2.3.4, clear sound and pause states
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -80,7 +80,7 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 Twelve original, procedurally composed instrumental tracks run locally through Web Audio: Cloud Castle, Firefly Forest, Coral Moon, Little Airship, Lantern River, Starry Caravan, Aurora Lullaby, Island Picnic, Savanna Morning, Snowglobe Waltz, Rainbow Railway, and Compass Dreams. Tempos stay between 74 and 112 BPM for a calmer child-friendly background.
 
-They use soft sine and triangle melody voices, slow chord pads, quiet arpeggios, warm bass, sparse low pulses, musical rests, and gentle bells. Harmonic changes now follow each eight-step phrase so melodies remain aligned with their chords. The earlier bright square-wave lead and frequent drum pattern have been removed. A shuffle bag prevents an immediate repeat and rotates the track after a longer phrase cycle. A skip button changes the tune. A softer four-note discovery cadence accompanies the final globe landing. Music is enabled by default and starts after the level-selection gesture, as required by browser autoplay rules. There is a dedicated mute button and a grown-up volume slider. Default gain is lower, and the slider is capped at 30% of the app’s gain scale.
+They use soft sine and triangle melody voices, slow chord pads, quiet arpeggios, warm bass, sparse low pulses, musical rests, and gentle bells. Harmonic changes now follow each eight-step phrase so melodies remain aligned with their chords. The earlier bright square-wave lead and frequent drum pattern have been removed. A shuffle bag prevents an immediate repeat and rotates the track after a longer phrase cycle. A skip button changes the tune. A softer four-note discovery cadence accompanies the final globe landing. Music is enabled by default and starts after the level-selection gesture, as required by browser autoplay rules. There is a dedicated mute button and a grown-up volume slider. Music and voice controls use distinct on/off colors and visible ON/OFF labels; Pause changes color when the adventure is paused and shows Pause/Resume. On phones, compact state labels stay visible below each icon. Default gain is lower, and the slider is capped at 30% of the app’s gain scale.
 
 Music stops for revealed answers, the picker, pause, hidden tabs, and dialogs. Music ducks during spoken clues so they remain understandable. Voice is a separate opt-in control using the browser’s speech synthesis. It now prefers a gentle installed English voice (Samantha on supported Apple devices), with slower, more natural speech settings. Grown-ups can choose another installed English voice in settings; availability and sound still depend on the browser/device. Playing an individual clue explicitly can read it even with automatic voice off. Browser/device volume still controls overall loudness. Browsers without Web Audio or speech support retain the visual game.
 
@@ -185,6 +185,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 26 September 2026 — Version 2.3.4
+
+Added separate active-state colors to Music, Voice, and Pause/Resume controls, with ON/OFF and Pause/Resume labels visible on phones. Updated accessible labels with state changes and reset the pause control when returning to the level picker. Updated asset cache versions and this project reference.
 
 ### 26 September 2026 — Version 2.3.3
 

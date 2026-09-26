@@ -52,6 +52,16 @@ header{height:70px}.brand{font-size:22px}.brand-icon{padding:6px;font-size:28px;
 .globe-zoom button:disabled{opacity:.45;cursor:default}
 #voice-choice{width:100%;padding:12px;border:2px solid #e9e2f2;border-radius:12px;background:white;color:#493c62;font:inherit}
 #voice-help{font-size:12px;margin:7px 0}
+
+/* Make the three sound/play modes distinct at a glance. */
+.header-actions button{border:2px solid transparent;min-width:76px}
+.header-actions #music[aria-pressed="true"]{background:#d8f3e2;border-color:#85cda0;color:#185e39;box-shadow:inset 0 -3px #85cda0}
+.header-actions #music[aria-pressed="false"],.header-actions #sound[aria-pressed="false"]{background:#eeebf2;border-color:#d7d1df;color:#61596b;box-shadow:inset 0 -3px #d7d1df}
+.header-actions #sound[aria-pressed="true"]{background:#dceaff;border-color:#8db3f0;color:#254f91;box-shadow:inset 0 -3px #8db3f0}
+.header-actions #pause[aria-pressed="false"]{background:#d8f3ef;border-color:#7dc8bc;color:#17675e;box-shadow:inset 0 -3px #7dc8bc}
+.header-actions #pause[aria-pressed="true"]{background:#ffedb8;border-color:#edbd52;color:#79520a;box-shadow:inset 0 -3px #edbd52}
+.header-actions #pause:disabled{background:#eeebf2;border-color:#d7d1df;color:#746d7d;box-shadow:inset 0 -3px #d7d1df;opacity:.7}
+@media(max-width:720px){header{padding:0 9px}.brand{font-size:16px;gap:5px}.brand-icon{font-size:20px;padding:5px}.header-actions{gap:3px}.header-actions button{min-width:0;padding:5px 6px;font-size:15px;line-height:1.05;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.header-actions span{display:block;font-size:8px;letter-spacing:.35px;font-weight:900}}
 .revealing #reveal-globe{animation:world-stage 3.8s cubic-bezier(.18,.78,.2,1) both}
 .revealing #country{animation:country-lock-and-land 3.8s cubic-bezier(.3,.02,.2,1) both!important;filter:drop-shadow(0 0 22px #fff) drop-shadow(0 0 45px #67ecff)}
 .revealing .orbit{animation:orbit-charge 3.8s ease both;border-color:#85eaff70;z-index:1}
