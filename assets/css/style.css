@@ -45,6 +45,13 @@ header{height:70px}.brand{font-size:22px}.brand-icon{padding:6px;font-size:28px;
 .map-stage.revealing::before{animation:cosmic-sweep 3.8s cubic-bezier(.2,.72,.2,1) both}
 #country{height:clamp(410px,37vw,530px);width:92%;z-index:4;transform-origin:center;will-change:transform,opacity,filter}
 #reveal-globe{width:min(94cqw,560px);max-width:94%;filter:drop-shadow(0 24px 32px #08183b73);z-index:2;will-change:transform,opacity}
+.revealing[data-reveal-phase="landed"] #reveal-globe{pointer-events:auto}
+.globe-zoom{position:absolute;top:16px;right:16px;z-index:7;display:none;gap:8px}
+.revealing[data-reveal-phase="landed"] .globe-zoom{display:flex}
+.globe-zoom button{width:44px;height:44px;border:2px solid #9fe8ff;border-radius:14px;background:#092654;color:white;font-size:28px;font-weight:800;line-height:1;box-shadow:0 4px 12px #061d4099}
+.globe-zoom button:disabled{opacity:.45;cursor:default}
+#voice-choice{width:100%;padding:12px;border:2px solid #e9e2f2;border-radius:12px;background:white;color:#493c62;font:inherit}
+#voice-help{font-size:12px;margin:7px 0}
 .revealing #reveal-globe{animation:world-stage 3.8s cubic-bezier(.18,.78,.2,1) both}
 .revealing #country{animation:country-lock-and-land 3.8s cubic-bezier(.3,.02,.2,1) both!important;filter:drop-shadow(0 0 22px #fff) drop-shadow(0 0 45px #67ecff)}
 .revealing .orbit{animation:orbit-charge 3.8s ease both;border-color:#85eaff70;z-index:1}

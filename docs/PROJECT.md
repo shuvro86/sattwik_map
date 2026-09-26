@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
-**Last updated:** 25 September 2026  
-**Version:** 2.3.2, responsive explorer edition
+**Last updated:** 26 September 2026<br>
+**Version:** 2.3.3, warm voice and globe zoom
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -74,7 +74,7 @@ Pause, a hidden browser tab, the level picker, and open dialogs stop the countdo
 
 On a correct answer or automatic reveal, the map locks with a glow, lifts through an expanding portal, and compresses into a large globe. The globe rotates across the world before settling on the selected country. The country’s real polygon appears in gold, a pulsing geographic beacon marks its position, and the country/region card arrives on the final beat. The reveal uses distinct lock, lift, orbit, locate, and landed stages. Tiny island nations remain discoverable through the beacon. The final answer, facts, celebration, and spoken announcement wait for the landing instead of appearing over the animation. The replay control repeats the location animation after an answer and repeats the map entrance before it.
 
-Globe drawing uses an orthographic projection of actual longitude/latitude coordinates, cached unit vectors, hemisphere visibility checks, a layered ocean, atmospheric halo, land outlines, and latitude lines. The reveal globe scales against its map canvas up to 590 CSS pixels on wide screens, uses a larger high-resolution Canvas backing store, and steps down at tablet, phone, and narrow-phone breakpoints. The map card keeps its own intrinsic height in the desktop grid, so the facts column cannot enlarge the globe canvas when the final answer appears. The landing globe is also larger and slowly rotates. On phones, the reveal scrolls the map into view. Reduced-motion users see the final location without the travel animation.
+Globe drawing uses an orthographic projection of actual longitude/latitude coordinates, cached unit vectors, hemisphere visibility checks, a layered ocean, atmospheric halo, land outlines, and latitude lines. The reveal globe scales against its map canvas up to 590 CSS pixels on wide screens, uses a larger high-resolution Canvas backing store, and steps down at tablet, phone, and narrow-phone breakpoints. The map card keeps its own intrinsic height in the desktop grid, so the facts column cannot enlarge the globe canvas when the final answer appears. The landing globe is also larger and slowly rotates. After the globe lands, accessible + and − buttons zoom its geography in and out (1×–3.2×); desktop mouse-wheel zoom works over the globe. Nearby country names appear once zoomed in, with the found country labeled first. Zoom resets for each new question or replay. On phones, the reveal scrolls the map into view. Reduced-motion users see the final location without the travel animation.
 
 ### Music and voice
 
@@ -82,7 +82,7 @@ Twelve original, procedurally composed instrumental tracks run locally through W
 
 They use soft sine and triangle melody voices, slow chord pads, quiet arpeggios, warm bass, sparse low pulses, musical rests, and gentle bells. Harmonic changes now follow each eight-step phrase so melodies remain aligned with their chords. The earlier bright square-wave lead and frequent drum pattern have been removed. A shuffle bag prevents an immediate repeat and rotates the track after a longer phrase cycle. A skip button changes the tune. A softer four-note discovery cadence accompanies the final globe landing. Music is enabled by default and starts after the level-selection gesture, as required by browser autoplay rules. There is a dedicated mute button and a grown-up volume slider. Default gain is lower, and the slider is capped at 30% of the app’s gain scale.
 
-Music stops for revealed answers, the picker, pause, hidden tabs, and dialogs. Music ducks during spoken clues so they remain understandable. Voice is a separate opt-in control using the browser’s speech synthesis. Playing an individual clue explicitly can read it even with automatic voice off. Browser/device volume still controls overall loudness. Browsers without Web Audio or speech support retain the visual game.
+Music stops for revealed answers, the picker, pause, hidden tabs, and dialogs. Music ducks during spoken clues so they remain understandable. Voice is a separate opt-in control using the browser’s speech synthesis. It now prefers a gentle installed English voice (Samantha on supported Apple devices), with slower, more natural speech settings. Grown-ups can choose another installed English voice in settings; availability and sound still depend on the browser/device. Playing an individual clue explicitly can read it even with automatic voice off. Browser/device volume still controls overall loudness. Browsers without Web Audio or speech support retain the visual game.
 
 ### Country explorer and photos
 
@@ -111,7 +111,7 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `assets/css/style.css` | Responsive layout, colors, animations, globe transitions, gallery and reduced-motion rules. |
 | `assets/js/app.js` | Game state, levels, shuffle, choices, answers, timing, clues, facts, explorer tabs, and audio coordination. |
 | `assets/js/data.js` | Bundled `COUNTRIES`, `WORLD`, and `GEOMETRY` data. |
-| `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation. |
+| `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation, landed zoom, and country labels. |
 | `assets/js/music.js` | Original Web Audio playlist and audio lifecycle. |
 | `assets/js/photos.js` | Country-keyed photograph metadata and credits. |
 | `assets/js/gallery.js` | Shared photo-card renderer and standalone gallery initialization. |
@@ -185,6 +185,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 26 September 2026 — Version 2.3.3
+
+Preferred a warmer installed English speech voice and adjusted speech rate and pitch. Added a grown-up voice selector while preserving opt-in narration and read-aloud clues. Added +/− controls and desktop wheel zoom to the final globe; country names appear when zoomed in, and zoom resets between questions and replays. Updated HTML cache versions, regression tests, and this documentation. `npm test` and JavaScript syntax checks passed; desktop Chrome confirmed country labels and zoom controls, and a 400 px phone emulation confirmed that the zoomed globe and controls fit. Audio quality still depends on installed system voices and speakers.
 
 ### 25 September 2026 — Version 2.3.2
 

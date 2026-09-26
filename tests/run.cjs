@@ -21,4 +21,10 @@ vm.runInContext(`discovered.clear();chooseLevel('high');const seen=new Set();for
 // Manual hints count toward the same five-clue limit and cannot reveal while paused.
 vm.runInContext(`chooseLevel('medium');paused=true;clue();if(clueCount)throw Error('paused clue');paused=false;for(let n=0;n<5;n++)$('early-clue').onclick();if(clueCount!==5||resolved)throw Error('manual hint cap');$('early-clue').onclick();if(clueCount!==5||resolved)throw Error('extra manual clue')`,ctx);
 advance(14999);assert.equal(state().resolved,false);advance(1);assert.equal(state().resolved,true);
-console.log('PASS: 195 complete records; level gate; 4 choices for all 585 country/level combinations; randomized decks; complete 195-country journey; five 15-second clues and reveal; pause/hidden/dialog; answer normalization; retained progress; manual clue cap.');
+// Prefer a gentle installed English voice, while allowing a grown-up to choose another.
+const spoken=[];ctx.window.speechSynthesis={getVoices:()=>[{name:'Albert',lang:'en-US'},{name:'Samantha',lang:'en-US'}],cancel(){},speak:u=>spoken.push(u)};
+ctx.SpeechSynthesisUtterance=function(text){this.text=text};
+vm.runInContext("sound=true;speak('Hello, Sattwik!')",ctx);
+assert.equal(spoken.at(-1).voice.name,'Samantha');assert.equal(spoken.at(-1).rate,.9);assert.equal(spoken.at(-1).pitch,1.02);
+els['voice-choice'].value='Albert|en-US';vm.runInContext("speak('Let’s explore!')",ctx);assert.equal(spoken.at(-1).voice.name,'Albert');
+console.log('PASS: 195 complete records; level gate; 4 choices for all 585 country/level combinations; randomized decks; complete 195-country journey; five 15-second clues and reveal; pause/hidden/dialog; answer normalization; retained progress; manual clue cap; warm voice selection.');
