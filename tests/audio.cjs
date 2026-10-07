@@ -1,7 +1,29 @@
 'use strict';
-const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');process.chdir(require('node:path').resolve(__dirname,'..'));
-let tick,notes=0,master,lastGain=0;const element={textContent:''};
-const param=()=>({value:0,setValueAtTime(){},exponentialRampToValueAtTime(){},setTargetAtTime(v){lastGain=v}});
-class Audio{constructor(){this.currentTime=0;this.state='running';this.destination={}}createGain(){const g={gain:param(),connect(){},disconnect(){}};master??=g;return g}createOscillator(){notes++;return{frequency:param(),connect(){},disconnect(){},start(){},stop(){}}}resume(){return Promise.resolve()}}
-const ctx=vm.createContext({window:{AudioContext:Audio},document:{getElementById:()=>element},performance:{now:()=>10000},setInterval:fn=>tick=fn,Math});vm.runInContext(fs.readFileSync('assets/js/music.js','utf8'),ctx);
-(async()=>{await vm.runInContext('AdventureAudio.unlock()',ctx);vm.runInContext('AdventureAudio.newQuestion()',ctx);assert.ok(element.textContent);const first=element.textContent;tick();assert.ok(notes>0);assert.ok(lastGain>0);vm.runInContext('AdventureAudio.newQuestion()',ctx);assert.notEqual(element.textContent,first);const beforeCadence=notes;vm.runInContext('AdventureAudio.success()',ctx);assert.ok(notes>beforeCadence);vm.runInContext('AdventureAudio.pause()',ctx);assert.equal(lastGain,0);vm.runInContext('AdventureAudio.resume();AdventureAudio.toggle()',ctx);assert.equal(lastGain,0);vm.runInContext('AdventureAudio.toggle();AdventureAudio.volume(0)',ctx);assert.equal(lastGain,0);assert.equal(vm.runInContext('AdventureAudio.tracks.length',ctx),12);console.log('PASS: twelve original tracks, shuffled non-repeating selection, discovery cadence, audio scheduling, pause, mute, and volume.');})().catch(e=>{console.error(e);process.exitCode=1});
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+process.chdir(require('node:path').resolve(__dirname,'..'));
+let now=0,timeout,player;
+class Audio{
+ constructor(){this.paused=true;this.volume=0;this.currentTime=0;this.events={};player=this}
+ addEventListener(name,handler){this.events[name]=handler}
+ play(){this.paused=false;return Promise.resolve()}
+ pause(){this.paused=true}
+}
+const label={textContent:''};
+const ctx=vm.createContext({Audio,window:{},document:{getElementById:()=>label},performance:{now:()=>now},setTimeout:(fn)=>{timeout=fn;return 1},clearTimeout(){},Math});
+vm.runInContext(fs.readFileSync('assets/js/music.js','utf8'),ctx);
+(async()=>{
+ assert.equal(await vm.runInContext('AdventureAudio.unlock()',ctx),true);
+ vm.runInContext('AdventureAudio.newQuestion()',ctx);
+ assert.ok(label.textContent&&player.src.startsWith('assets/audio/'));
+ assert.equal(player.paused,false);assert.ok(player.volume>0);
+ const first=player.src;
+ vm.runInContext('AdventureAudio.skip()',ctx);assert.notEqual(player.src,first);
+ vm.runInContext('AdventureAudio.duck(5000)',ctx);assert.ok(player.volume<.05);
+ now+=5000;timeout();assert.ok(player.volume>.05);
+ vm.runInContext('AdventureAudio.success()',ctx);assert.equal(player.paused,true);
+ vm.runInContext('AdventureAudio.resume();AdventureAudio.toggle()',ctx);assert.equal(player.paused,true);
+ vm.runInContext('AdventureAudio.toggle();AdventureAudio.volume(0)',ctx);assert.equal(player.volume,0);
+ assert.equal(vm.runInContext('AdventureAudio.tracks.length',ctx),3);
+ for(const file of ['carefree.mp3','frost-waltz.mp3','dream-culture.mp3'])assert.ok(fs.statSync(`assets/audio/${file}`).size>100000);
+ console.log('PASS: three licensed local recordings, non-repeating selection, playback, ducking, pause, mute, and volume.');
+})().catch(e=>{console.error(e);process.exitCode=1});

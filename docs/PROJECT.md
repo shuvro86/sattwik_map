@@ -1,7 +1,7 @@
 # Sattwik’s World — Project documentation
 
-**Last updated:** 26 September 2026<br>
-**Version:** 2.3.5, colorful explorer landing
+**Last updated:** 7 October 2026<br>
+**Version:** 2.4.0, recorded adventure music and gentler voice mix
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
 
 ## Purpose and audience
@@ -20,7 +20,7 @@ python3 -m http.server 5173 --bind 127.0.0.1
 npm start
 ```
 
-Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. Gallery images require internet. Maps, facts, game logic, and synthesized music are local. Browser speech support and whether voices require connectivity depend on the platform.
+Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. Gallery images require internet. Maps, facts, game logic, and bundled music recordings are local. Browser speech support and whether voices require connectivity depend on the platform.
 
 ### Vercel hosting
 
@@ -78,11 +78,9 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 ### Music and voice
 
-Twelve original, procedurally composed instrumental tracks run locally through Web Audio: Cloud Castle, Firefly Forest, Coral Moon, Little Airship, Lantern River, Starry Caravan, Aurora Lullaby, Island Picnic, Savanna Morning, Snowglobe Waltz, Rainbow Railway, and Compass Dreams. Tempos stay between 74 and 112 BPM for a calmer child-friendly background.
+Three locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree (gentle ukulele and marimba), Frost Waltz (a soft orchestral and bell melody), and Dream Culture (dreamy piano). A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a 30% maximum app volume. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
 
-They use soft sine and triangle melody voices, slow chord pads, quiet arpeggios, warm bass, sparse low pulses, musical rests, and gentle bells. Harmonic changes now follow each eight-step phrase so melodies remain aligned with their chords. The earlier bright square-wave lead and frequent drum pattern have been removed. A shuffle bag prevents an immediate repeat and rotates the track after a longer phrase cycle. A skip button changes the tune. A softer four-note discovery cadence accompanies the final globe landing. Music is enabled by default and starts after the level-selection gesture, as required by browser autoplay rules. There is a dedicated mute button and a grown-up volume slider. Music and voice controls use distinct on/off colors and visible ON/OFF labels; Pause changes color when the adventure is paused and shows Pause/Resume. On phones, compact state labels stay visible below each icon. Default gain is lower, and the slider is capped at 30% of the app’s gain scale.
-
-Music stops for revealed answers, the picker, pause, hidden tabs, and dialogs. Music ducks during spoken clues so they remain understandable. Voice is a separate opt-in control using the browser’s speech synthesis. It now prefers a gentle installed English voice (Samantha on supported Apple devices), with slower, more natural speech settings. Grown-ups can choose another installed English voice in settings; availability and sound still depend on the browser/device. Playing an individual clue explicitly can read it even with automatic voice off. Browser/device volume still controls overall loudness. Browsers without Web Audio or speech support retain the visual game.
+Voice remains opt-in and uses browser speech synthesis for the many dynamic country names and clues. Automatic mode now rotates among available gentle English voices each question, including younger and older sounding device voices when installed. It avoids changing voices in the middle of a question. Speech uses a near-natural rate, neutral pitch, and slightly reduced volume. A grown-up can select one installed English voice. The exact voices and their perceived ages depend on the browser and device. **These are synthesized voices, not human recordings**; genuine human narration for all dynamic clues would require recorded material. The clue read-aloud button works with automatic voice off. Browsers without music or speech playback still have the visual game.
 
 ### Country explorer and photos
 
@@ -99,7 +97,7 @@ Photographs are sourced from Wikimedia Commons. The refresh script checks countr
 - **Population:** [World Bank SP.POP.TOTL](https://data.worldbank.org/indicator/SP.POP.TOTL), latest available observation fetched 25 September 2026. The app displays each record’s year (currently primarily 2025), not an unlabeled “live” count. [CC BY 4.0](https://datacatalog.worldbank.org/public-licenses).
 - **Vatican City population:** 882 residents, 31 December 2024, from the [official Vatican City State population page](https://www.vaticanstate.va/en/state-and-government/general-informations/population.html). Kept separately because the World Bank dataset omits this record.
 - **Photos:** [Wikimedia Commons](https://commons.wikimedia.org/). Each `assets/js/photos.js` record preserves its returned thumbnail URL, description page, author, license label, license URL when supplied, and description. Individual photograph licenses apply; attribution is visible with every photo. Do not remove it or replace factual photographs with invented images.
-- **Music:** original synthesized compositions in `assets/js/music.js`; no external audio assets.
+- **Music:** locally bundled Carefree, Frost Waltz, and Dream Culture by Kevin MacLeod (incompetech.com), each [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Carefree](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400037), [Frost Waltz](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100516), [Dream Culture](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046). Credits and license links also appear in the application.
 
 Country map colors use flag-inspired hues for the original twelve countries and a consistent world-region palette for the expanded set. Flag emojis depend on platform rendering.
 
@@ -112,7 +110,8 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `assets/js/app.js` | Game state, levels, shuffle, choices, answers, timing, clues, facts, explorer tabs, and audio coordination. |
 | `assets/js/data.js` | Bundled `COUNTRIES`, `WORLD`, and `GEOMETRY` data. |
 | `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation, landed zoom, and country labels. |
-| `assets/js/music.js` | Original Web Audio playlist and audio lifecycle. |
+| `assets/js/music.js` | Bundled recording playlist and playback controls. |
+| `assets/audio/` | Three locally bundled CC BY 4.0 MP3 recordings. |
 | `assets/js/photos.js` | Country-keyed photograph metadata and credits. |
 | `assets/js/gallery.js` | Shared photo-card renderer and standalone gallery initialization. |
 | `assets/licenses/` | Third-party data license text retained with the distributed application. |
@@ -121,7 +120,7 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `scripts/refresh-population.py` | World Bank population refresh; preserves separately sourced Vatican figure. |
 | `tests/run.cjs` | Game lifecycle, randomized choices, timers, answer handling, and completion checks. |
 | `tests/data.cjs` | All-country geometry/fact/population/gallery completeness and source checks. |
-| `tests/audio.cjs` | Track count, random selection, scheduling, pause, mute, and volume checks. |
+| `tests/audio.cjs` | Recording count, shuffle, playback, speech ducking, pause, mute, and volume checks. |
 | `vercel.json` | Static Vercel hosting configuration without a build step. |
 | `.vercelignore` | Excludes local configuration and maintenance files from deployment. |
 | `package.json` | Convenience start and test scripts; no dependencies. |
@@ -138,16 +137,16 @@ Automated tests cover:
 - All 585 country/level combinations: exactly four distinct choices and one correct choice.
 - A fresh randomized deck, no repeated questions, no forced first country, complete 195-country journey, and progress across level changes.
 - The pre-game gate, five timed clue boundaries, final reveal, early-clue cap, hidden tabs/dialog pauses, and answer normalization.
-- Twelve original tracks, shuffle-bag selection, audio scheduling, discovery cadence, mute, pause, and volume.
+- Three bundled recordings, shuffle-bag selection, playback, speech ducking, mute, pause, and volume.
 - At least ten unique photo records per country, each with a supported Wikimedia source URL, author and license.
 
-Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, responsive phone/desktop layouts, and independent explorer list/detail scrolling. Automated audio tests confirm scheduling/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
+Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, responsive phone/desktop layouts, and independent explorer list/detail scrolling. Automated audio tests confirm playback/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
 
 ### Verification snapshot — 25 September 2026
 
 - All game lifecycle tests passed, including 585 country/level option combinations and a full 195-country run.
 - All data checks passed: 195 maps, 195 dated population records, and 2,301 attributed photo records with a minimum of ten per country.
-- All twelve-track audio-control and scheduling tests passed.
+- Historical release: all twelve-track audio-control and scheduling tests passed.
 - Browser checks passed at phone and desktop sizes. The responsive globe sizes, five-stage country landing, delayed final announcement, replay control, and question controls were inspected without horizontal overflow or runtime errors.
 - Every JavaScript file passed syntax checking. Photo coverage checks validate metadata completeness, not permanent upstream availability.
 
@@ -185,6 +184,11 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 7 October 2026 — Version 2.4.0
+
+Replaced the procedural soundtrack with three locally bundled, credited CC BY 4.0 instrumental recordings. Retained non-repeating shuffle, skip, mute, capped volume, speech ducking, and all pause/visibility behavior. Automatic narration now varies among the installed gentle English voices by question, with a neutral pitch and near-natural rate; the grown-up voice selector remains. The settings explain that device voices are synthesized and that genuine human narration still requires recordings. Updated asset cache versions and audio tests. `npm test` passed, including all 195 country and 2,301 photo record checks; modified JavaScript passed syntax checks. Safari browser QA verified the desktop game, a narrow enlarged view with four choices, the settings controls, and a local MP3 request. Acoustic quality was not judged by automated tests.
+
 
 ### 26 September 2026 — Version 2.3.5
 
