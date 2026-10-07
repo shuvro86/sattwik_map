@@ -10,7 +10,7 @@ A colorful geography game for four-year-old Sattwik, played independently by tap
 
 ## Running the project
 
-This is a dependency-free static frontend: HTML, CSS, JavaScript, SVG paths, Canvas 2D, and Web Audio. No bundler, framework, backend, database, sign-in, tracking, analytics, or API key is needed.
+This is a dependency-free static frontend: HTML, CSS, JavaScript, SVG paths, Canvas 2D, and HTML audio. No bundler, framework, backend, database, sign-in, tracking, analytics, or API key is needed.
 
 Open `index.html` directly, or run in the project folder:
 
@@ -78,7 +78,7 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 ### Music and voice
 
-Three locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree (gentle ukulele and marimba), Frost Waltz (a soft orchestral and bell melody), and Dream Culture (dreamy piano). A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a 30% maximum app volume. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
+Three locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree (gentle ukulele and marimba), Frost Waltz (a soft orchestral and bell melody), and Dream Culture (dreamy piano). A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a 30% maximum app volume. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
 
 Voice remains opt-in and uses browser speech synthesis for the many dynamic country names and clues. Automatic mode now rotates among available gentle English voices each question, including younger and older sounding device voices when installed. It avoids changing voices in the middle of a question. Speech uses a near-natural rate, neutral pitch, and slightly reduced volume. A grown-up can select one installed English voice. The exact voices and their perceived ages depend on the browser and device. **These are synthesized voices, not human recordings**; genuine human narration for all dynamic clues would require recorded material. The clue read-aloud button works with automatic voice off. Browsers without music or speech playback still have the visual game.
 
@@ -187,7 +187,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 7 October 2026 — Version 2.4.0
 
-Replaced the procedural soundtrack with three locally bundled, credited CC BY 4.0 instrumental recordings. Retained non-repeating shuffle, skip, mute, capped volume, speech ducking, and all pause/visibility behavior. Automatic narration now varies among the installed gentle English voices by question, with a neutral pitch and near-natural rate; the grown-up voice selector remains. The settings explain that device voices are synthesized and that genuine human narration still requires recordings. Updated asset cache versions and audio tests. `npm test` passed, including all 195 country and 2,301 photo record checks; modified JavaScript passed syntax checks. Safari browser QA verified the desktop game, a narrow enlarged view with four choices, the settings controls, and a local MP3 request. Acoustic quality was not judged by automated tests.
+Replaced the procedural soundtrack with three locally bundled, credited CC BY 4.0 instrumental recordings. Retained non-repeating shuffle, skip, mute, capped volume, speech ducking, and all pause/visibility behavior. Automatic narration now varies among the installed gentle English voices by question, with a neutral pitch and near-natural rate; the grown-up voice selector remains. The settings explain that device voices are synthesized and that genuine human narration still requires recordings. Updated asset cache versions and audio tests. `npm test` passed, including all 195 country and 2,301 photo record checks; modified JavaScript passed syntax checks. Safari browser QA verified the desktop game, a narrow enlarged view with four choices, the settings controls, and a local MP3 request. Acoustic quality was not judged by automated tests. Pushed the final revision to GitHub and deployed the same file contents to the existing Vercel production site; the homepage and all three MP3 files returned HTTP 200.
 
 
 ### 26 September 2026 — Version 2.3.5
