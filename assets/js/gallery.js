@@ -19,7 +19,11 @@ const CountryGallery={
  }
 };
 if(document.body.dataset.page==='gallery'){
+ let explorerName='';try{explorerName=localStorage.getItem('worldExplorerName')||''}catch{}
+ explorerName=explorerName.trim().slice(0,40);
+ const owner=explorerName?(/[sS]$/.test(explorerName)?`${explorerName}’`:`${explorerName}’s`):'Our';
+ document.getElementById('gallery-explorer-possessive').textContent=owner;
  const code=new URLSearchParams(location.search).get('country');const c=COUNTRIES.find(c=>c.id===code);
- if(c){document.title=`${c.name} · Sattwik’s Picture Adventure`;document.getElementById('gallery-title').textContent=`Hello, ${c.name}!`;document.getElementById('gallery-flag').textContent=c.flag;document.getElementById('gallery-subtitle').textContent=`${c.region} · ${c.population.toLocaleString()} people (${c.populationYear})`;CountryGallery.render(document.getElementById('standalone-gallery'),c)}
+ if(c){document.title=`${c.name} · ${owner} Picture Adventure`;document.getElementById('gallery-title').textContent=`Hello, ${c.name}!`;document.getElementById('gallery-flag').textContent=c.flag;document.getElementById('gallery-subtitle').textContent=`${c.region} · ${c.population.toLocaleString()} people (${c.populationYear})`;CountryGallery.render(document.getElementById('standalone-gallery'),c)}
  else{document.getElementById('gallery-title').textContent='Choose a country in the explorer first.'}
 }

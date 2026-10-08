@@ -63,7 +63,7 @@ header{height:70px}.brand{font-size:22px}.brand-icon{padding:6px;font-size:28px;
 .header-actions #pause:disabled{background:#eeebf2;border-color:#d7d1df;color:#746d7d;box-shadow:inset 0 -3px #d7d1df;opacity:.7}
 @media(max-width:720px){header{padding:0 9px}.brand{font-size:16px;gap:5px}.brand-icon{font-size:20px;padding:5px}.header-actions{gap:3px}.header-actions button{min-width:0;padding:5px 6px;font-size:15px;line-height:1.05;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}.header-actions span{display:block;font-size:8px;letter-spacing:.35px;font-weight:900}}
 
-/* Bright, welcoming level picker for Sattwik. */
+/* Bright, welcoming level picker for young explorers. */
 .level-screen{position:relative;isolation:isolate;overflow:hidden;border-radius:38px;padding:30px clamp(18px,4vw,56px) 40px;background:radial-gradient(ellipse at 14% 7%,#fff3a8 0,transparent 30%),radial-gradient(ellipse at 88% 17%,#ffc9eb 0,transparent 28%),linear-gradient(135deg,#e4f8ff 0%,#f1e9ff 51%,#fff0d1 100%);box-shadow:0 22px 65px #57419c1c}
 .level-screen::before{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(circle at 7% 58%,#70e0da52 0 9%,transparent 9.2%),radial-gradient(circle at 93% 68%,#ffb66b55 0 8%,transparent 8.2%),radial-gradient(circle at 50% 100%,#bb9bfa33 0 18%,transparent 18.2%)}
 .level-screen::after{content:"✦　✧　✦";position:absolute;z-index:2;top:23px;right:7%;color:#e59a27;font-size:25px;letter-spacing:9px;pointer-events:none;animation:picker-sparkle 2.4s ease-in-out infinite alternate}
@@ -118,3 +118,34 @@ header{height:70px}.brand{font-size:22px}.brand-icon{padding:6px;font-size:28px;
 @media(max-width:390px){.map-stage{min-height:330px}#country{height:315px}#reveal-globe{width:min(94cqw,330px)}.globe-badge{left:11px}.globe-badge span{display:none}}
 @media(prefers-reduced-motion:reduce){.map-stage.revealing::before,.revealing .reveal-ring,.revealing .reveal-beacon{display:none}.revealing #country{opacity:0!important}.revealing #reveal-globe{opacity:1;visibility:visible;transform:none}.map-stage.revealing{transition:none}#location-label{opacity:1;transform:translateX(-50%)}}
 [tabindex="-1"]:focus{outline:none}
+
+.bangla-clue{font-family:system-ui,sans-serif;color:#5b486f!important;border-top:1px solid #eadfcf;padding-top:8px;font-size:16px!important}#settings select{width:100%;margin-top:8px;padding:12px 14px;border:2px solid #e9e2f2;border-radius:12px;background:#fcfbff;color:#493c62;font:inherit}#settings select:focus-visible{outline:3px solid #eea91e;outline-offset:2px}
+
+#sound span{display:inline}#sound[data-mode="bn"]{background:#dff5e9;border-color:#8acaa5;color:#236d4b;box-shadow:inset 0 -3px #8acaa5}#sound[data-mode="en"]{background:#dceaff;border-color:#8db3f0;color:#254f91;box-shadow:inset 0 -3px #8db3f0}#sound[data-mode="off"]{background:#eeebf2;border-color:#d7d1df;color:#61596b;box-shadow:inset 0 -3px #d7d1df}@media(max-width:720px){#sound{min-width:54px}#sound span{display:block;font-size:9px;letter-spacing:0}}
+
+body.profile-pending>header,body.profile-pending>main,body.profile-pending>dialog:not(#settings),body.profile-pending>#confetti{display:none}
+body.profile-pending #restart{display:none}
+.profile-screen{min-height:100dvh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 18% 18%,#fff8bf 0,transparent 34%),radial-gradient(circle at 85% 80%,#b5f3eb 0,transparent 36%),linear-gradient(145deg,#eee1ff,#f8e8f4 60%,#dff1ff)}
+.profile-screen.hidden{display:none}
+.profile-card{width:min(100%,500px);padding:clamp(25px,5vw,45px);border:2px solid #ffffffd9;border-radius:32px;background:#fffffff0;box-shadow:0 22px 65px #49347026;text-align:center}
+.profile-globe{font-size:64px;line-height:1.2;margin-bottom:12px}
+.profile-card h1{font-size:clamp(32px,5vw,43px);color:#5633a7}
+.profile-card>p{max-width:340px;margin:0 auto 24px}
+#profile-form{text-align:left;display:grid;gap:9px}
+#profile-form label{font-weight:800;color:#3c3155;margin-top:10px}
+#profile-form input,#profile-form select{width:100%;min-height:52px;border:2px solid #d9d0ed;border-radius:13px;background:#fff;padding:11px 14px;color:#292044;font-size:18px}
+#profile-form input:focus-visible,#profile-form select:focus-visible{outline:3px solid #eea91e;outline-offset:2px}
+#profile-form .profile-privacy{font-size:12px;color:#6f6480;margin:6px 0 0}
+#profile-error{min-height:1.4em;color:#a0324b;font-weight:700;margin:0}
+#profile-settings{min-height:50px;width:100%;background:#eee8f7;color:#5a3d87;font-size:16px}
+#profile-form .primary{min-height:54px;margin-top:3px;font-size:18px}
+.play-toolbar #parents{margin-left:0}
+@media(max-width:520px){.profile-screen{padding:16px}.profile-card{border-radius:24px}.profile-globe{font-size:52px}}
+
+/* Keep a child's full chosen name readable without widening narrow screens. */
+.brand{min-width:0;white-space:normal;overflow-wrap:anywhere}
+.brand>span:last-child{min-width:0}
+header{height:auto;min-height:100px;gap:10px}
+.header-actions{flex-shrink:0}
+#level-title,.welcome h1,#settings h2,footer{overflow-wrap:anywhere}
+@media(max-width:720px){header{height:auto;min-height:62px;padding-top:6px;padding-bottom:6px}}

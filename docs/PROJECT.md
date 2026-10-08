@@ -1,12 +1,12 @@
-# Sattwik’s World — Project documentation
+# World Adventure — Project documentation
 
-**Last updated:** 7 October 2026<br>
-**Version:** 2.4.0, recorded adventure music and gentler voice mix
-**Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/sattwik_map/`
+**Last updated:** 8 October 2026<br>
+**Version:** 2.6.2, welcome settings label and responsive verification
+**Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
 
-A colorful geography game for four-year-old Sattwik, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration without penalties. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
+A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration without penalties. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
 
 ## Running the project
 
@@ -20,7 +20,7 @@ python3 -m http.server 5173 --bind 127.0.0.1
 npm start
 ```
 
-Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. Gallery images require internet. Maps, facts, game logic, and bundled music recordings are local. Browser speech support and whether voices require connectivity depend on the platform.
+Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. The picture page title and brand use the saved explorer name when available. Gallery images require internet. Maps, facts, game logic, and bundled music recordings are local. Browser speech support and whether voices require connectivity depend on the platform.
 
 ### Vercel hosting
 
@@ -38,9 +38,11 @@ World regions distinguish North and South America. France’s flat quiz map show
 
 ## Screens and flow
 
-### Landing page
+### Explorer welcome and landing page
 
-The first screen asks Sattwik to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It uses a bright layered gradient backdrop, animated sparkles, and a gently floating Canvas globe to create an energetic welcome. Easy, Medium, and High each have their own vivid gradient card, large text, and clear tap target; narrow phone screens stack the cards vertically. Reduced-motion preferences stop the decorative motion. The screen also links to the searchable explorer.
+On every main-page load, a welcome screen asks for the child’s name and birth year before the level picker is available. Both fields are required. The year is chosen from a dropdown covering the current year and the preceding 120 years, validated, and discarded. The trimmed name (up to 40 characters) personalizes the header, page title, landing and game headings, footer, settings heading, spoken question, voice greeting, and discovery announcement. The name alone is stored in this device’s localStorage so a separately opened country picture page can use the same name in its header and title. A direct gallery visit without a saved name uses “Our World.” Reloading the main page asks again and updates the saved name; no profile, account, or server submission is created. An **Adjust Settings** button immediately before **Start exploring** opens the grown-up settings dialog before play. A second Make Settings button in the active game toolbar keeps voice and music-volume settings available during play; the old header Grown-ups button is removed.
+
+After the welcome, the level picker asks the explorer to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It uses a bright layered gradient backdrop, animated sparkles, and a gently floating Canvas globe to create an energetic welcome. Easy, Medium, and High each have their own vivid gradient card, large text, and clear tap target; narrow phone screens stack the cards vertically. Reduced-motion preferences stop the decorative motion. The screen also links to the searchable explorer.
 
 ### Difficulty
 
@@ -80,7 +82,7 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 Three locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree (gentle ukulele and marimba), Frost Waltz (a soft orchestral and bell melody), and Dream Culture (dreamy piano). A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a 30% maximum app volume. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
 
-Voice remains opt-in and uses browser speech synthesis for the many dynamic country names and clues. Automatic mode now rotates among available gentle English voices each question, including younger and older sounding device voices when installed. It avoids changing voices in the middle of a question. Speech uses a near-natural rate, neutral pitch, and slightly reduced volume. A grown-up can select one installed English voice. The exact voices and their perceived ages depend on the browser and device. **These are synthesized voices, not human recordings**; genuine human narration for all dynamic clues would require recorded material. The clue read-aloud button works with automatic voice off. Browsers without music or speech playback still have the visual game.
+Voice remains opt-in and uses browser speech synthesis. The header’s visible ♬ button cycles **Off → Bangla → English → Off**; it announces the chosen language when switched on. Prompts, clues, encouragement, and country reveals speak in the selected language. The question greeting and discovery announcement address the entered explorer name in both modes; Bangla pronunciation of a name entered in another script depends on the device voice. Each clue card also shows Bangla text. All 195 countries have five Bangla clue slots; the twelve special animal/landmark/shape facts have matching translations, while other clues are assembled from bundled country facts. Country names use the browser’s Bengali region names when available. English initial and three-letter name hints remain English spelling hints in the Bangla script. Automatic English narration rotates among available gentle English voices each question; a grown-up may select an English voice and a separate installed Bangla voice in settings. A Bangla voice may be absent on a device, in which case the browser may use a fallback voice and pronunciation can suffer. Speech uses a near-natural rate, neutral pitch, and reduced volume. **These are synthesized device voices, not human recordings**. The clue read-aloud button still works while automatic voice is Off, reading Bangla in that state. Browsers without speech playback still have both written clue languages.
 
 ### Country explorer and photos
 
@@ -118,7 +120,7 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `gallery.html` | A particular country’s photo page, selected by its ISO alpha-3 query parameter. |
 | `scripts/refresh-photos.py` | Cached, rate-limited Commons metadata refresh using Python stdlib and curl. |
 | `scripts/refresh-population.py` | World Bank population refresh; preserves separately sourced Vatican figure. |
-| `tests/run.cjs` | Game lifecycle, randomized choices, timers, answer handling, and completion checks. |
+| `tests/run.cjs` | Welcome validation and name checks, game lifecycle, randomized choices, timers, answer handling, completion, and Bangla/English speech and clue checks. |
 | `tests/data.cjs` | All-country geometry/fact/population/gallery completeness and source checks. |
 | `tests/audio.cjs` | Recording count, shuffle, playback, speech ducking, pause, mute, and volume checks. |
 | `vercel.json` | Static Vercel hosting configuration without a build step. |
@@ -136,8 +138,8 @@ Automated tests cover:
 - 195 country records and real geographic geometry, finite paths, populations with dates/sources.
 - All 585 country/level combinations: exactly four distinct choices and one correct choice.
 - A fresh randomized deck, no repeated questions, no forced first country, complete 195-country journey, and progress across level changes.
-- The pre-game gate, five timed clue boundaries, final reveal, early-clue cap, hidden tabs/dialog pauses, and answer normalization.
-- Three bundled recordings, shuffle-bag selection, playback, speech ducking, mute, pause, and volume.
+- The name/birth-year entry gate and welcome settings access, five timed clue boundaries, final reveal, early-clue cap, hidden tabs/dialog pauses, answer normalization, and all-country Bangla clue coverage.
+- Three bundled recordings, shuffle-bag selection, playback, speech ducking, mute, pause, volume, and Off/Bangla/English voice routing and button state.
 - At least ten unique photo records per country, each with a supported Wikimedia source URL, author and license.
 
 Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, responsive phone/desktop layouts, and independent explorer list/detail scrolling. Automated audio tests confirm playback/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
@@ -175,15 +177,35 @@ When changing cached browser assets, increment their `?v=` references in both HT
 ## Known limits
 
 - This is a static application available locally and on Vercel, not an installable mobile app.
-- Session discoveries are not stored across browser refreshes.
+- Session discoveries are not stored across browser refreshes. The name is stored on this device for gallery personalization; the birth year is not stored.
 - The 195-country convention excludes dependencies and other entities outside the chosen scope.
 - Maps are simplified, may reflect disputed boundaries, and do not compare countries to a shared flat-map scale.
 - Population counts are dated estimates, not a live counter. Administrative facts reflect the bundled sources.
 - Photos need internet and may become unavailable upstream. Retry/source links are available; the map game remains usable offline.
-- Emoji flags, browser voices, autoplay policies, and audio output vary by device.
+- Emoji flags, browser voices, autoplay policies, and audio output vary by device. Some devices have no Bangla voice; browser fallback pronunciation may be poor. City names and spelling hints in Bangla clues include English words or letters.
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 8 October 2026 — Version 2.6.2
+
+Renamed the welcome-screen settings button to **Adjust Settings** while retaining the active-game **Make Settings** control. Responsive testing found that a 40-character explorer name could widen a narrow phone page; branding and headings now wrap while keeping the full name visible. Updated the entry assertion, stylesheet cache version, and package version. `npm test` passed, including all 195 countries and 2,301 distinct photo records; modified JavaScript syntax checks and `git diff --check` passed. Local browser checks covered 320, 360, 390, 430, 560, 720, 768, 1024, 1280, and 1600 px widths across the welcome, level picker, game, and gallery. The 320×568 settings and explorer dialogs remained usable; the full-length name no longer caused horizontal overflow. Deployed to the existing Vercel production alias at https://sattwik-map.vercel.app (deployment `dpl_8Gj7hvPqL1B6J3Xntqw9vp2RG78b`, ready). A live browser check confirmed the renamed button, stylesheet version, and twelve credited Bangladesh photo records.
+
+### 8 October 2026 — Version 2.6.1
+
+Replaced the birth-date input with a required birth-year dropdown to avoid day/month typing mistakes. The selected year is validated and discarded. Moved the grown-up settings entry to the welcome form as **Make Settings**, directly before **Start exploring**, and kept a Make Settings control in the active game toolbar so voice and volume settings remain reachable during a question. Removed the former header button and hid the reset action before play begins. Updated regression checks, asset cache versions, package version, and this guide. `npm test` and modified-JavaScript syntax checks passed, including all 195 country records and 2,301 photo records. Local browser checks confirmed the settings dialog opens before starting, the year picker works, four choices remain, and no horizontal overflow occurs at 390 px phone and 1280 px desktop widths. No deployment was made.
+
+### 8 October 2026 — Version 2.6.0
+
+Added a required name and birth-date welcome screen before level selection. Validated and discarded the birth date; stored only the explorer name locally for picture-page branding. Replaced current Sattwik-specific interface text, titles, and English/Bangla question and discovery speech with the entered name, while retaining the existing game flow and credits. Added welcome and spoken-name checks, refreshed changed asset cache versions, and updated the package metadata. `npm test` and modified-JavaScript syntax checks passed, including all 195 countries and 2,301 distinct photo records. Local browser checks covered the welcome screen, personalized landing and game, four choices, and picture-page title/header at 390 px phone and 1280 px desktop widths with no horizontal overflow. Browser audio quality remains device-dependent. No deployment was made.
+
+### 7 October 2026 — Version 2.5.1
+
+Changed the header voice control to the requested three visible states: Off, Bangla, and English. One tap from Off starts Bangla; the next selects English; the next turns automatic speech Off. The button keeps its current state visible on phone and desktop widths, while grown-up settings retain separate English and Bangla device voice selection. Removed the settings language dropdown and bilingual playback so the button is the single language control. Updated tests, cache versions, package version, and this guide. `npm test` and syntax checks passed, including all 195 country and 2,301 photo record checks. Deployed to the existing Vercel production alias at https://sattwik-map.vercel.app (deployment `dpl_BH7UrwFdYSaPXusaU8S2RizsUACg`, ready). Live browser checks confirmed all three button states and labels, the Bangla clue text and country reveal, separate English and Bangla voice selectors (including an available Bengali device voice), and no horizontal overflow at 390 px phone and 1280 px desktop widths. Audible pronunciation still depends on the playback device.
+
+### 7 October 2026 — Version 2.5.0
+
+Added Bangla narration beside English for question prompts, all five clue slots, retry encouragement, and discovered country names. Grown-up settings now choose bilingual (Bangla first), Bangla only, or English only, with separate English and Bangla device voice selectors. Clue cards show the Bangla text; the twelve special country facts have corresponding Bangla lines, and the remaining clues are built from existing country facts. Kept opt-in voice, manual read-aloud, music ducking, pause and visibility behavior. Updated the game asset cache version, package version, tests, and this guide. `npm test` passed, including all 195 countries and 2,301 distinct photo records; modified JavaScript passed syntax checks. Browser visual QA was blocked by the local browser security policy, which disallowed opening the project’s `file:` URL; no visual or acoustic quality claim is made for this revision.
 
 ### 7 October 2026 — Version 2.4.0
 
