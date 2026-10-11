@@ -20,7 +20,7 @@ python3 -m http.server 5173 --bind 127.0.0.1
 npm start
 ```
 
-Open `http://localhost:5173`. The server binds only to the local machine. The owner-approved production site is https://sattwik-map.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. The picture page title and brand use the saved explorer name when available. Gallery images require internet. Maps, facts, game logic, and bundled music recordings are local. Browser speech support and whether voices require connectivity depend on the platform.
+Open `http://localhost:5173`. The server binds only to the local machine. The current public production site is https://baby-map-game.vercel.app, hosted on Vercel (project `hlw2/sattwik-map`). The former https://sattwik-map.vercel.app address returned HTTP 404 on 11 October 2026. A photo page can be opened directly as `gallery.html?country=BGD`, using a country’s three-letter code. The picture page title and brand use the saved explorer name when available. Gallery images require internet. Maps, facts, game logic, and bundled music recordings are local. Browser speech support and whether voices require connectivity depend on the platform.
 
 ### Vercel hosting
 
@@ -189,7 +189,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 11 October 2026 — Version 2.8.1
 
-Limited the welcome name field to 15 characters, added a visible hint, and enforced the same maximum in the submit handler. Added a regression check that rejects an overlong name even if the browser input limit is bypassed. Refreshed the app script cache version and package version. This release also includes the previously local 2.7.0 and 2.8.0 changes: unified voice-style choices, question scoring, nine local music tracks, louder music controls, and the animated responsive score card. `npm test` and modified-JavaScript syntax checks passed; local browser checks covered the name limit and phone/desktop layout. Pushed to GitHub, then deployed to the existing Vercel production project.
+Limited the welcome name field to 15 characters, added a visible hint, and enforced the same maximum in the submit handler. Added a regression check that rejects an overlong name even if the browser input limit is bypassed. Refreshed the app script cache version and package version. This release also includes the previously local 2.7.0 and 2.8.0 changes: unified voice-style choices, question scoring, nine local music tracks, louder music controls, and the animated responsive score card. `npm test` and modified-JavaScript syntax checks passed; local browser checks covered the name limit and phone/desktop layout. Pushed application commit `cb608d3` to GitHub, then deployed to the existing Vercel production project (deployment `dpl_4cVy2wEnRGXXsxj8htT7yyCzvGNg`, ready). The public alias https://baby-map-game.vercel.app returned HTTP 200 with the 15-character limit and new music asset; the older `sattwik-map.vercel.app` hostname returned HTTP 404. This documentation correction was pushed and the same application was redeployed afterward.
 
 ### 11 October 2026 — Version 2.8.0
 
