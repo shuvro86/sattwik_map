@@ -5,9 +5,15 @@ const AdventureAudio=(()=>{
  const tracks=[
   {name:'Carefree',file:'carefree.mp3'},
   {name:'Frost Waltz',file:'frost-waltz.mp3'},
-  {name:'Dream Culture',file:'dream-culture.mp3'}
+  {name:'Dream Culture',file:'dream-culture.mp3'},
+  {name:'Daily Beetle',file:'daily-beetle.mp3'},
+  {name:'Windswept',file:'windswept.mp3'},
+  {name:'Crinoline Dreams',file:'crinoline-dreams.mp3'},
+  {name:'Wholesome',file:'wholesome.mp3'},
+  {name:'Porch Swing Days',file:'porch-swing-days-slower.mp3'},
+  {name:'Almost Bliss',file:'almost-bliss.mp3'}
  ];
- let player,enabled=true,playing=false,volume=.16,track=-1,bag=[],duckUntil=0,duckTimer;
+ let player,enabled=true,playing=false,volume=.55,track=-1,bag=[],duckUntil=0,duckTimer;
  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
  function setup(){
   if(player)return true;
@@ -16,7 +22,7 @@ const AdventureAudio=(()=>{
   player.addEventListener('ended',()=>{if(playing&&enabled){select();resume()}});
   return true;
  }
- function setVolume(){if(player)player.volume=playing&&enabled?volume*(performance.now()<duckUntil?.22:1):0}
+ function setVolume(){if(player)player.volume=playing&&enabled?volume*(performance.now()<duckUntil?.16:1):0}
  function refillBag(){bag=shuffle(tracks.map((_,i)=>i).filter(i=>i!==track))}
  function select(){
   if(!bag.length)refillBag();
@@ -41,7 +47,7 @@ const AdventureAudio=(()=>{
   newQuestion(){if(!setup())return;select();resume()},
   pause,resume,success,
   toggle(){enabled=!enabled;if(!enabled&&player)player.pause();else if(playing)resume();setVolume();return enabled},
-  volume(value){volume=Math.max(0,Math.min(.3,value));setVolume()},
+  volume(value){volume=Math.max(0,Math.min(1,value));setVolume()},
   duck,
   skip(){if(!setup())return;select();if(playing&&enabled)resume()},
   get tracks(){return tracks.map(t=>t.name)}

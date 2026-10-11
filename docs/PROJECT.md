@@ -1,12 +1,12 @@
 # World Adventure — Project documentation
 
-**Last updated:** 8 October 2026<br>
-**Version:** 2.6.2, welcome settings label and responsive verification
+**Last updated:** 11 October 2026<br>
+**Version:** 2.8.1, 15-character explorer name limit
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
 
-A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration without penalties. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
+A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration with visible points and no wrong-guess penalty. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
 
 ## Running the project
 
@@ -40,7 +40,7 @@ World regions distinguish North and South America. France’s flat quiz map show
 
 ### Explorer welcome and landing page
 
-On every main-page load, a welcome screen asks for the child’s name and birth year before the level picker is available. Both fields are required. The year is chosen from a dropdown covering the current year and the preceding 120 years, validated, and discarded. The trimmed name (up to 40 characters) personalizes the header, page title, landing and game headings, footer, settings heading, spoken question, voice greeting, and discovery announcement. The name alone is stored in this device’s localStorage so a separately opened country picture page can use the same name in its header and title. A direct gallery visit without a saved name uses “Our World.” Reloading the main page asks again and updates the saved name; no profile, account, or server submission is created. An **Adjust Settings** button immediately before **Start exploring** opens the grown-up settings dialog before play. A second Make Settings button in the active game toolbar keeps voice and music-volume settings available during play; the old header Grown-ups button is removed.
+On every main-page load, a welcome screen asks for the child’s name and birth year before the level picker is available. Both fields are required. The year is chosen from a dropdown covering the current year and the preceding 120 years, validated, and discarded. The trimmed name (up to 15 characters) personalizes the header, page title, landing and game headings, footer, settings heading, spoken question, voice greeting, and discovery announcement. The name alone is stored in this device’s localStorage so a separately opened country picture page can use the same name in its header and title. A direct gallery visit without a saved name uses “Our World.” Reloading the main page asks again and updates the saved name; no profile, account, or server submission is created. An **Adjust Settings** button immediately before **Start exploring** opens the grown-up settings dialog before play. A second Make Settings button in the active game toolbar keeps voice and music-volume settings available during play; the old header Grown-ups button is removed.
 
 After the welcome, the level picker asks the explorer to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It uses a bright layered gradient backdrop, animated sparkles, and a gently floating Canvas globe to create an energetic welcome. Easy, Medium, and High each have their own vivid gradient card, large text, and clear tap target; narrow phone screens stack the cards vertically. Reduced-motion preferences stop the decorative motion. The screen also links to the searchable explorer.
 
@@ -58,9 +58,9 @@ Fisher–Yates shuffles the country deck at level selection. There is no fixed f
 
 ### Question and answers
 
-The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; they do not subtract stars, advance the question, or restart the clock. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, facts, and next button on the animation’s landing beat.
+The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; they do not subtract stars, advance the question, or restart the clock. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, score, facts, and next button on the animation’s landing beat.
 
-Automatic reveals also earn a discovery star: this is a learning game, not a scoring test. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Progress stays in memory, survives level switches, and resets on refresh or a deliberate fresh start.
+Automatic reveals also earn a discovery star and score zero points. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Discovery stars and total points stay in memory, survive level switches, and reset on refresh or a deliberate fresh start. A correct answer earns 10 points before any clue, then 8, 6, 4, 2, or 1 after clues one through five. An angular violet result card shows the question score, clue count, and running total when the globe reveal lands. It slides in with a short number pop and light sweep; reduced-motion users see a static card. On phones it scrolls into view. Wrong guesses never subtract points.
 
 ### Clue treasure chest
 
@@ -80,9 +80,9 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 ### Music and voice
 
-Three locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree (gentle ukulele and marimba), Frost Waltz (a soft orchestral and bell melody), and Dream Culture (dreamy piano). A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a 30% maximum app volume. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
+Nine locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree, Frost Waltz, Dream Culture, Daily Beetle, Windswept, Crinoline Dreams, Wholesome, Porch Swing Days - slower, and Almost Bliss. The added selections favor clear melodies, calmer instrumentation, and child-friendly moods. A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a louder 55% default and a 100% maximum app volume. Speech temporarily ducks music to 16% of the chosen level. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
 
-Voice remains opt-in and uses browser speech synthesis. The header’s visible ♬ button cycles **Off → Bangla → English → Off**; it announces the chosen language when switched on. Prompts, clues, encouragement, and country reveals speak in the selected language. The question greeting and discovery announcement address the entered explorer name in both modes; Bangla pronunciation of a name entered in another script depends on the device voice. Each clue card also shows Bangla text. All 195 countries have five Bangla clue slots; the twelve special animal/landmark/shape facts have matching translations, while other clues are assembled from bundled country facts. Country names use the browser’s Bengali region names when available. English initial and three-letter name hints remain English spelling hints in the Bangla script. Automatic English narration rotates among available gentle English voices each question; a grown-up may select an English voice and a separate installed Bangla voice in settings. A Bangla voice may be absent on a device, in which case the browser may use a fallback voice and pronunciation can suffer. Speech uses a near-natural rate, neutral pitch, and reduced volume. **These are synthesized device voices, not human recordings**. The clue read-aloud button still works while automatic voice is Off, reading Bangla in that state. Browsers without speech playback still have both written clue languages.
+Voice remains opt-in and uses browser speech synthesis. The header’s visible ♬ button cycles **Off → Bangla → English → Off**; it announces the chosen language when switched on. Prompts, clues, encouragement, and country reveals speak in the selected language. The question greeting and discovery announcement address the entered explorer name in both modes; Bangla pronunciation of a name entered in another script depends on the device voice. Each clue card also shows Bangla text. All 195 countries have five Bangla clue slots; the twelve special animal/landmark/shape facts have matching translations, while other clues are assembled from bundled country facts. Country names use the browser’s Bengali region names when available. English initial and three-letter name hints remain English spelling hints in the Bangla script. Automatic English narration rotates among available gentle English voices each question. Settings offer the same fixed Gentle and Clear reading styles for English and Bangla on every device; these adjust speech rate and pitch. The underlying synthesized voice still comes from the browser or device and may differ. A Bangla voice may be absent on a device, in which case the browser may use a fallback voice and pronunciation can suffer. Gentle speech uses a near-natural rate and neutral pitch; Clear speaks slightly faster and higher. Both use reduced volume. **These are synthesized device voices, not human recordings**. The clue read-aloud button still works while automatic voice is Off, reading Bangla in that state. Browsers without speech playback still have both written clue languages.
 
 ### Country explorer and photos
 
@@ -99,7 +99,7 @@ Photographs are sourced from Wikimedia Commons. The refresh script checks countr
 - **Population:** [World Bank SP.POP.TOTL](https://data.worldbank.org/indicator/SP.POP.TOTL), latest available observation fetched 25 September 2026. The app displays each record’s year (currently primarily 2025), not an unlabeled “live” count. [CC BY 4.0](https://datacatalog.worldbank.org/public-licenses).
 - **Vatican City population:** 882 residents, 31 December 2024, from the [official Vatican City State population page](https://www.vaticanstate.va/en/state-and-government/general-informations/population.html). Kept separately because the World Bank dataset omits this record.
 - **Photos:** [Wikimedia Commons](https://commons.wikimedia.org/). Each `assets/js/photos.js` record preserves its returned thumbnail URL, description page, author, license label, license URL when supplied, and description. Individual photograph licenses apply; attribution is visible with every photo. Do not remove it or replace factual photographs with invented images.
-- **Music:** locally bundled Carefree, Frost Waltz, and Dream Culture by Kevin MacLeod (incompetech.com), each [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Carefree](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400037), [Frost Waltz](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100516), [Dream Culture](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046). Credits and license links also appear in the application.
+- **Music:** nine locally bundled recordings by Kevin MacLeod (incompetech.com), each [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): [Carefree](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400037), [Frost Waltz](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100516), [Dream Culture](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300046), [Daily Beetle](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500025), [Windswept](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100757), [Crinoline Dreams](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700073), [Wholesome](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1900022), [Porch Swing Days - slower](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100715), and [Almost Bliss](https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1900015). Source pages and license link were checked 11 October 2026; credits also appear in the app.
 
 Country map colors use flag-inspired hues for the original twelve countries and a consistent world-region palette for the expanded set. Flag emojis depend on platform rendering.
 
@@ -113,14 +113,14 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `assets/js/data.js` | Bundled `COUNTRIES`, `WORLD`, and `GEOMETRY` data. |
 | `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation, landed zoom, and country labels. |
 | `assets/js/music.js` | Bundled recording playlist and playback controls. |
-| `assets/audio/` | Three locally bundled CC BY 4.0 MP3 recordings. |
+| `assets/audio/` | Nine locally bundled CC BY 4.0 MP3 recordings. |
 | `assets/js/photos.js` | Country-keyed photograph metadata and credits. |
 | `assets/js/gallery.js` | Shared photo-card renderer and standalone gallery initialization. |
 | `assets/licenses/` | Third-party data license text retained with the distributed application. |
 | `gallery.html` | A particular country’s photo page, selected by its ISO alpha-3 query parameter. |
 | `scripts/refresh-photos.py` | Cached, rate-limited Commons metadata refresh using Python stdlib and curl. |
 | `scripts/refresh-population.py` | World Bank population refresh; preserves separately sourced Vatican figure. |
-| `tests/run.cjs` | Welcome validation and name checks, game lifecycle, randomized choices, timers, answer handling, completion, and Bangla/English speech and clue checks. |
+| `tests/run.cjs` | Welcome validation and name checks, game lifecycle, randomized choices, timers, scoring tiers and result, answer handling, completion, and Bangla/English speech and clue checks. |
 | `tests/data.cjs` | All-country geometry/fact/population/gallery completeness and source checks. |
 | `tests/audio.cjs` | Recording count, shuffle, playback, speech ducking, pause, mute, and volume checks. |
 | `vercel.json` | Static Vercel hosting configuration without a build step. |
@@ -139,7 +139,7 @@ Automated tests cover:
 - All 585 country/level combinations: exactly four distinct choices and one correct choice.
 - A fresh randomized deck, no repeated questions, no forced first country, complete 195-country journey, and progress across level changes.
 - The name/birth-year entry gate and welcome settings access, five timed clue boundaries, final reveal, early-clue cap, hidden tabs/dialog pauses, answer normalization, and all-country Bangla clue coverage.
-- Three bundled recordings, shuffle-bag selection, playback, speech ducking, mute, pause, volume, and Off/Bangla/English voice routing and button state.
+- Nine bundled recordings, shuffle-bag selection, playback, speech ducking, mute, pause, volume, and Off/Bangla/English voice routing, fixed reading-style lists, and button state.
 - At least ten unique photo records per country, each with a supported Wikimedia source URL, author and license.
 
 Browser QA includes the compact landing view, all difficulty controls, interactive clues, a correct-answer globe reveal, explorer search, large flag/population facts, gallery tabs, a separate photo page, responsive phone/desktop layouts, and independent explorer list/detail scrolling. Automated audio tests confirm playback/control behavior; audible quality depends on the user’s playback hardware. Metadata completeness is distinct from external thumbnail availability.
@@ -182,10 +182,22 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - Maps are simplified, may reflect disputed boundaries, and do not compare countries to a shared flat-map scale.
 - Population counts are dated estimates, not a live counter. Administrative facts reflect the bundled sources.
 - Photos need internet and may become unavailable upstream. Retry/source links are available; the map game remains usable offline.
-- Emoji flags, browser voices, autoplay policies, and audio output vary by device. Some devices have no Bangla voice; browser fallback pronunciation may be poor. City names and spelling hints in Bangla clues include English words or letters.
+- Emoji flags, the sound and availability of browser voices, autoplay policies, and audio output vary by device. Reading-style choices are fixed across devices. Some devices have no Bangla voice; browser fallback pronunciation may be poor. City names and spelling hints in Bangla clues include English words or letters.
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 11 October 2026 — Version 2.8.1
+
+Limited the welcome name field to 15 characters, added a visible hint, and enforced the same maximum in the submit handler. Added a regression check that rejects an overlong name even if the browser input limit is bypassed. Refreshed the app script cache version and package version. This release also includes the previously local 2.7.0 and 2.8.0 changes: unified voice-style choices, question scoring, nine local music tracks, louder music controls, and the animated responsive score card. `npm test` and modified-JavaScript syntax checks passed; local browser checks covered the name limit and phone/desktop layout. Pushed to GitHub, then deployed to the existing Vercel production project.
+
+### 11 October 2026 — Version 2.8.0
+
+Added six locally bundled melodic instrumental recordings by Kevin MacLeod, expanding the shuffle playlist from three to nine tracks: Daily Beetle, Windswept, Crinoline Dreams, Wholesome, Porch Swing Days - slower, and Almost Bliss. Verified their official source pages and CC BY 4.0 attribution; the app credits every track. Increased the default music level from 16% to 55% and the grown-up slider maximum from 30% to 100%, with speech ducking adjusted to 16% of the selected level. Existing mute, skip, pause, visibility, and end-of-track behavior remain. Restyled the score reveal as an angular violet card with a short slide, number pop, and light sweep, with a static reduced-motion version. Updated the HTML asset versions, audio and score tests, package version, and this guide. `npm test` passed, including all 195 countries and 2,301 photo records; modified JavaScript syntax and `git diff --check` passed. Local browser checks covered all nine shuffled track names, volume controls, credits, and the score card at 1280, 390, and 320 px widths, with no horizontal overflow. No GitHub push or Vercel deployment was made.
+
+### 11 October 2026 — Version 2.7.0
+
+Replaced device-enumerated English and Bangla voice menus with identical Gentle and Clear reading-style choices on every device. The browser still supplies the synthesized voices, so pronunciation and availability can differ; the UI says so. Added per-question points: 10 before clues, then 8/6/4/2/1 after clues one through five, and 0 for automatic reveal. The result appears above facts when the globe lands, with clue count and running total; phone views scroll it into sight. Discovery stars and wrong-guess behavior remain. Updated tests, cache versions, package version, and this guide. `npm test` passed, including 195 countries and 2,301 photo records; modified JavaScript syntax and `git diff --check` passed. Local browser QA checked the fixed settings lists and scored results at 1280 px desktop and 390 px phone widths. No GitHub push or Vercel deployment was made.
 
 ### 8 October 2026 — Version 2.6.2
 
