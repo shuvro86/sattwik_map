@@ -7,6 +7,10 @@ const state=()=>vm.runInContext('({index,clueCount,remaining,resolved,stars:disc
 assert.equal(vm.runInContext("validBirthYear('2020')",ctx),true);assert.equal(vm.runInContext("validBirthYear('20')",ctx),false);assert.equal(vm.runInContext("validBirthYear('2999')",ctx),false);
 assert.equal(els['explorer-birth-year'].children.length,121);
 const entryHtml=fs.readFileSync('index.html','utf8');assert.match(entryHtml,/<select id="voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.match(entryHtml,/<select id="bangla-voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.ok(entryHtml.indexOf('id="profile-settings"')<entryHtml.indexOf('Start exploring ➜'));assert.match(entryHtml,/<input id="explorer-name"[^>]*maxlength="15"[^>]*required/);assert.match(entryHtml,/<select id="explorer-birth-year"[^>]*required/);assert.match(entryHtml,/<button[^>]*id="profile-settings"[^>]*>⚙ Adjust Settings<\/button>/);
+assert.match(entryHtml,/<section id="marking-rules"[\s\S]*?8 − \(3 × 3\) = −1[\s\S]*?<\/section>/);
+assert.match(entryHtml,/3 points for every wrong answer/);
+assert.match(entryHtml,/An automatic reveal starts at <strong>0 points<\/strong>; wrong-answer deductions still apply/);
+assert.doesNotMatch(entryHtml,/Wrong guesses do not reduce points/);
 els['profile-settings'].onclick();assert.equal(els.settings.open,true);els.settings.close();
 els['explorer-name'].value='SixteenLettersAB';els['explorer-birth-year'].value='2020';els['profile-form'].handlers.submit({preventDefault(){}});assert.match(els['profile-error'].textContent,/15 characters/);assert.equal(vm.runInContext('explorerName',ctx),'');
 els['explorer-name'].value='  Maya  ';els['explorer-birth-year'].value='2020';els['profile-form'].handlers.submit({preventDefault(){}});

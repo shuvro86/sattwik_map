@@ -1,7 +1,7 @@
 # World Adventure — Project documentation
 
 **Last updated:** 18 October 2026<br>
-**Version:** 2.9.1, corrected three-point wrong-answer scoring
+**Version:** 2.9.2, grown-up marking guide
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
@@ -40,7 +40,7 @@ World regions distinguish North and South America. France’s flat quiz map show
 
 ### Explorer welcome and landing page
 
-On every main-page load, a welcome screen asks for the child’s name and birth year before the level picker is available. Both fields are required. The year is chosen from a dropdown covering the current year and the preceding 120 years, validated, and discarded. The trimmed name (up to 15 characters) personalizes the header, page title, landing and game headings, footer, settings heading, spoken question, voice greeting, and discovery announcement. The name alone is stored in this device’s localStorage so a separately opened country picture page can use the same name in its header and title. A direct gallery visit without a saved name uses “Our World.” Reloading the main page asks again and updates the saved name; no profile, account, or server submission is created. An **Adjust Settings** button immediately before **Start exploring** opens the grown-up settings dialog before play. A second Make Settings button in the active game toolbar keeps voice and music-volume settings available during play; the old header Grown-ups button is removed.
+On every main-page load, a welcome screen asks for the child’s name and birth year before the level picker is available. Both fields are required. The year is chosen from a dropdown covering the current year and the preceding 120 years, validated, and discarded. The trimmed name (up to 15 characters) personalizes the header, page title, landing and game headings, footer, settings heading, spoken question, voice greeting, and discovery announcement. The name alone is stored in this device’s localStorage so a separately opened country picture page can use the same name in its header and title. A direct gallery visit without a saved name uses “Our World.” Reloading the main page asks again and updates the saved name; no profile, account, or server submission is created. An **Adjust Settings** button immediately before **Start exploring** opens the grown-up settings dialog before play. A second Make Settings button in the active game toolbar keeps voice and music-volume settings available during play; the old header Grown-ups button is removed. The settings dialog also explains the correct-answer tiers, three-point wrong-answer deduction, negative results, automatic reveals, and a worked example.
 
 After the welcome, the level picker asks the explorer to choose **Easy**, **Medium**, or **High** before any question or countdown starts. It uses a bright layered gradient backdrop, animated sparkles, and a gently floating Canvas globe to create an energetic welcome. Easy, Medium, and High each have their own vivid gradient card, large text, and clear tap target; narrow phone screens stack the cards vertically. Reduced-motion preferences stop the decorative motion. The screen also links to the searchable explorer.
 
@@ -187,6 +187,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 18 October 2026 — Version 2.9.2
+
+Replaced outdated scoring copy in the **For our grown-ups** settings dialog with a compact marking guide: all clue tiers, the three-point deduction, a three-wrong-answer example, and automatic-reveal and running-total rules. Made the settings dialog scroll within the viewport, refreshed the stylesheet cache version, updated package metadata, and retained the detailed cases in `docs/MARKING_RULES.md`.
 
 ### 18 October 2026 — Version 2.9.1
 
