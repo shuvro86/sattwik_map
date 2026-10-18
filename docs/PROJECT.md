@@ -190,7 +190,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 19 October 2026 — Version 2.10.0
 
-Refined the canvas globe with deeper ocean shading, a softer atmosphere, earth-toned land, subtle surface grain, and clearer coastlines. Restyled the mystery-map backdrop and outline for stronger contrast, including small island shapes. The rendering still uses the existing bundled geographic data; the surface effects are visual rather than satellite imagery. Refreshed asset cache versions and package metadata.
+Refined the canvas globe with deeper ocean shading, a softer atmosphere, earth-toned land, subtle surface grain, and clearer coastlines. Restyled the mystery-map backdrop and outline for stronger contrast, including small island shapes. The rendering still uses the existing bundled geographic data; the surface effects are visual rather than satellite imagery. Refreshed asset cache versions and package metadata. `npm test` passed, including all 195 country records and 2,301 distinct attributed photo records; modified JavaScript syntax and `git diff --check` passed. Pushed application commit `5a8b626` to GitHub and deployed to the existing Vercel production project (`dpl_3K3pFXDcZvw9WqZWW6j9NxXoZSKc`, ready). Live browser checks covered the level-picker globe and mystery map at 1280 px desktop, plus the landing globe, mystery map, and zoomed country labels at 390 px phone. No phone horizontal overflow or browser console errors were observed.
 
 ### 18 October 2026 — Version 2.9.2
 
