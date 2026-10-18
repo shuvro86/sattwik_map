@@ -190,7 +190,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 18 October 2026 — Version 2.9.1
 
-Corrected every wrong-answer deduction to three points, including guesses before the first clue, while preserving the 10/8/6/4/2/1 correct-answer tiers. Updated the result-card calculation, scoring tests, script cache version, and package version. Added `docs/MARKING_RULES.md` with the formula and worked cases.
+Corrected every wrong-answer deduction to three points, including guesses before the first clue, while preserving the 10/8/6/4/2/1 correct-answer tiers. Updated the result-card calculation, scoring tests, script cache version, and package version. Added `docs/MARKING_RULES.md` with the formula and worked cases. `npm test` passed, including all 195 countries and 2,301 attributed photo records; modified JavaScript syntax and `git diff --check` passed. Pushed application commit `4b58e00` to GitHub and deployed to the existing Vercel production project (`dpl_FaLzBsNv6u2hsfzy8D3zfJS9BvNr`, ready). Live browser checks at 1280 px desktop and 390 px phone confirmed four choices, the three-wrong-answer calculation, the running total, the next-question reset, and no phone horizontal overflow.
 
 ### 18 October 2026 — Version 2.9.0
 
