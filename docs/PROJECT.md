@@ -189,7 +189,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 18 October 2026 — Version 2.9.0
 
-Added five-point deductions for each wrong answer after a clue, counted across the whole question and displayed in the result calculation. Added five short countdown clicks during the last five active seconds of every clue wait and the final reveal wait, with a visible countdown highlight and existing mute, volume, pause, and visibility behavior. Updated scoring and timer checks, cache versions, package version, and this guide.
+Added five-point deductions for each wrong answer after a clue, counted across the whole question and displayed in the result calculation. Added five short countdown clicks during the last five active seconds of every clue wait and the final reveal wait, with a visible countdown highlight and existing mute, volume, pause, and visibility behavior. Updated scoring and timer checks, cache versions, package version, and this guide. `npm test` passed, including 195 country records and 2,301 distinct attributed photos; modified JavaScript syntax and `git diff --check` passed. Pushed commit `c295bbc` to GitHub and deployed to the existing Vercel production project (deployment `dpl_2q3T5ExHRRQCyyrifYt3Sf3PapjA`, ready). Vercel curl confirmed the production alias serves the updated HTML and game script. Phone and desktop browser interaction checks could not run: the local server socket was denied and the browser reported network I/O suspended for the HTTPS production page.
 
 ### 12 October 2026 — Version 2.8.2
 
