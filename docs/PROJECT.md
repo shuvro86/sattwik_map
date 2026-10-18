@@ -1,12 +1,12 @@
 # World Adventure — Project documentation
 
 **Last updated:** 18 October 2026<br>
-**Version:** 2.9.0, clue countdown and wrong-answer scoring
+**Version:** 2.9.1, corrected three-point wrong-answer scoring
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
 
-A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration with visible points and a five-point deduction for wrong guesses after a clue. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
+A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration with visible points and a three-point deduction for each wrong answer. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
 
 ## Running the project
 
@@ -58,9 +58,9 @@ Fisher–Yates shuffles the country deck at level selection. There is no fixed f
 
 ### Question and answers
 
-The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; once a clue has appeared, each wrong selection deducts five points from that question. They do not subtract stars, advance the question, or restart the clock. In High mode, each wrong typed guess after a clue has the same deduction. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, score, facts, and next button on the animation’s landing beat.
+The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; each wrong selection deducts three points from that question, even before the first clue. They do not subtract stars, advance the question, or restart the clock. In High mode, each submitted wrong typed guess has the same deduction; blank submissions do not count. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, score, facts, and next button on the animation’s landing beat.
 
-Automatic reveals also earn a discovery star and score zero points. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Discovery stars and total points stay in memory, survive level switches, and reset on refresh or a deliberate fresh start. A correct answer earns 10 points before any clue, then 8, 6, 4, 2, or 1 after clues one through five. An angular violet result card shows the question score, clue count, and running total when the globe reveal lands. It slides in with a short number pop and light sweep; reduced-motion users see a static card. On phones it scrolls into view. Each wrong answer after the first clue subtracts five from the question score, including an answer that is eventually revealed automatically. Three such mistakes subtract 15. The question score can be negative, and its signed value is added to the running total; wrong answers before any clue remain free. The result card shows the deduction calculation.
+Automatic reveals also earn a discovery star and have zero base points before any wrong-answer deductions. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Discovery stars and total points stay in memory, survive level switches, and reset on refresh or a deliberate fresh start. A correct answer earns 10 points before any clue, then 8, 6, 4, 2, or 1 after clues one through five. An angular violet result card shows the question score, clue count, and running total when the globe reveal lands. It slides in with a short number pop and light sweep; reduced-motion users see a static card. On phones it scrolls into view. Each wrong answer subtracts three from the question score, including mistakes before clues and in a question that is eventually revealed automatically. Three mistakes subtract nine. The question score can be negative, and its signed value is added to the running total. The result card shows the deduction calculation. Worked cases are in `docs/MARKING_RULES.md`.
 
 ### Clue treasure chest
 
@@ -109,7 +109,8 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | --- | --- |
 | `index.html` | Main landing/game UI, settings, source credits, and explorer dialog. |
 | `assets/css/style.css` | Responsive layout, colors, animations, globe transitions, gallery and reduced-motion rules. |
-| `assets/js/app.js` | Game state, levels, shuffle, choices, answers, timing, clues, facts, explorer tabs, and audio coordination. |
+| `assets/js/app.js` | Game state, levels, shuffle, choices, answers, timing, clues, scoring, facts, explorer tabs, and audio coordination. |
+| `docs/MARKING_RULES.md` | Scoring formula, clue-tier table, and worked question and running-total cases. |
 | `assets/js/data.js` | Bundled `COUNTRIES`, `WORLD`, and `GEOMETRY` data. |
 | `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation, landed zoom, and country labels. |
 | `assets/js/music.js` | Bundled recording playlist, playback controls, and short countdown clicks. |
@@ -186,6 +187,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 18 October 2026 — Version 2.9.1
+
+Corrected every wrong-answer deduction to three points, including guesses before the first clue, while preserving the 10/8/6/4/2/1 correct-answer tiers. Updated the result-card calculation, scoring tests, script cache version, and package version. Added `docs/MARKING_RULES.md` with the formula and worked cases.
 
 ### 18 October 2026 — Version 2.9.0
 
