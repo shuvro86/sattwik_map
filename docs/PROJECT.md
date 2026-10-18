@@ -190,7 +190,7 @@ When changing cached browser assets, increment their `?v=` references in both HT
 
 ### 18 October 2026 — Version 2.9.2
 
-Replaced outdated scoring copy in the **For our grown-ups** settings dialog with a compact marking guide: all clue tiers, the three-point deduction, a three-wrong-answer example, and automatic-reveal and running-total rules. Made the settings dialog scroll within the viewport, refreshed the stylesheet cache version, updated package metadata, and retained the detailed cases in `docs/MARKING_RULES.md`.
+Replaced outdated scoring copy in the **For our grown-ups** settings dialog with a compact marking guide: all clue tiers, the three-point deduction, a three-wrong-answer example, and automatic-reveal and running-total rules. Made the settings dialog scroll within the viewport, refreshed the stylesheet cache version, updated package metadata, and retained the detailed cases in `docs/MARKING_RULES.md`. `npm test` passed, including 195 country records and 2,301 distinct attributed photos; the modified test JavaScript syntax and `git diff --check` passed. Pushed application commit `05337af` to GitHub and deployed to the existing Vercel production project (`dpl_zrQTkCEs4oUjkpkmHCNcN3UBhsYr`, ready). The live settings dialog showed the new rules at 1280 px desktop and 390 px phone widths. The phone dialog stayed within the viewport, scrolled to its controls, and had no horizontal overflow.
 
 ### 18 October 2026 — Version 2.9.1
 
