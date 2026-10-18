@@ -1,7 +1,7 @@
 # World Adventure — Project documentation
 
-**Last updated:** 18 October 2026<br>
-**Version:** 2.9.2, grown-up marking guide
+**Last updated:** 19 October 2026<br>
+**Version:** 2.10.0, refined globe and map visuals
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
@@ -76,7 +76,7 @@ Pause, a hidden browser tab, the level picker, and open dialogs stop the countdo
 
 On a correct answer or automatic reveal, the map locks with a glow, lifts through an expanding portal, and compresses into a large globe. The globe rotates across the world before settling on the selected country. The country’s real polygon appears in gold, a pulsing geographic beacon marks its position, and the country/region card arrives on the final beat. The reveal uses distinct lock, lift, orbit, locate, and landed stages. Tiny island nations remain discoverable through the beacon. The final answer, facts, celebration, and spoken announcement wait for the landing instead of appearing over the animation. The replay control repeats the location animation after an answer and repeats the map entrance before it.
 
-Globe drawing uses an orthographic projection of actual longitude/latitude coordinates, cached unit vectors, hemisphere visibility checks, a layered ocean, atmospheric halo, land outlines, and latitude lines. The reveal globe scales against its map canvas up to 590 CSS pixels on wide screens, uses a larger high-resolution Canvas backing store, and steps down at tablet, phone, and narrow-phone breakpoints. The map card keeps its own intrinsic height in the desktop grid, so the facts column cannot enlarge the globe canvas when the final answer appears. The landing globe is also larger and slowly rotates. After the globe lands, accessible + and − buttons zoom its geography in and out (1×–3.2×); desktop mouse-wheel zoom works over the globe. Nearby country names appear once zoomed in, with the found country labeled first. Zoom resets for each new question or replay. On phones, the reveal scrolls the map into view. Reduced-motion users see the final location without the travel animation.
+Globe drawing uses an orthographic projection of actual longitude/latitude coordinates, cached unit vectors, hemisphere visibility checks, a shaded ocean, atmospheric halo, textured earth-toned land, coastlines, and faint latitude lines. The mystery map uses a quieter atlas grid and stronger country-outline contrast. Surface lighting and grain are decorative canvas effects rather than satellite imagery or a land-cover dataset; geographic shape and location still come from the bundled Natural Earth geometry. The reveal globe scales against its map canvas up to 590 CSS pixels on wide screens, uses a larger high-resolution Canvas backing store, and steps down at tablet, phone, and narrow-phone breakpoints. The map card keeps its own intrinsic height in the desktop grid, so the facts column cannot enlarge the globe canvas when the final answer appears. The landing globe is also larger and slowly rotates. After the globe lands, accessible + and − buttons zoom its geography in and out (1×–3.2×); desktop mouse-wheel zoom works over the globe. Nearby country names appear once zoomed in, with the found country labeled first. Zoom resets for each new question or replay. On phones, the reveal scrolls the map into view. Reduced-motion users see the final location without the travel animation.
 
 ### Music and voice
 
@@ -187,6 +187,10 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 19 October 2026 — Version 2.10.0
+
+Refined the canvas globe with deeper ocean shading, a softer atmosphere, earth-toned land, subtle surface grain, and clearer coastlines. Restyled the mystery-map backdrop and outline for stronger contrast, including small island shapes. The rendering still uses the existing bundled geographic data; the surface effects are visual rather than satellite imagery. Refreshed asset cache versions and package metadata.
 
 ### 18 October 2026 — Version 2.9.2
 
