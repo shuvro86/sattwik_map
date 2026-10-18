@@ -1,12 +1,12 @@
 # World Adventure — Project documentation
 
-**Last updated:** 11 October 2026<br>
-**Version:** 2.8.1, 15-character explorer name limit
+**Last updated:** 18 October 2026<br>
+**Version:** 2.9.0, clue countdown and wrong-answer scoring
 **Owner’s project directory:** `/Users/shusovonroy/Applications/ChatGPT-Project/global_map/`
 
 ## Purpose and audience
 
-A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration with visible points and no wrong-guess penalty. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
+A colorful geography game first made for four-year-old Sattwik and now welcoming all enthusiastic children, played independently by tapping choices or together with a grown-up who can read/type. The experience rewards exploration with visible points and a five-point deduction for wrong guesses after a clue. The child sees an animated country outline, guesses the country, receives gentle help, and sees where that country belongs on a real globe.
 
 ## Running the project
 
@@ -58,9 +58,9 @@ Fisher–Yates shuffles the country deck at level selection. There is no fixed f
 
 ### Question and answers
 
-The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; they do not subtract stars, advance the question, or restart the clock. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, score, facts, and next button on the animation’s landing beat.
+The country outline enters with an animation. Four large colored buttons let the child answer. Wrong selections gently disable that one option; once a clue has appeared, each wrong selection deducts five points from that question. They do not subtract stars, advance the question, or restart the clock. In High mode, each wrong typed guess after a clue has the same deduction. High mode also accepts case-insensitive/punctuation-insensitive typed answers and known aliases. Blank input receives guidance. Correct answers lock all choices, start the country-to-globe sequence, award one discovery star, and reveal the answer, score, facts, and next button on the animation’s landing beat.
 
-Automatic reveals also earn a discovery star and score zero points. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Discovery stars and total points stay in memory, survive level switches, and reset on refresh or a deliberate fresh start. A correct answer earns 10 points before any clue, then 8, 6, 4, 2, or 1 after clues one through five. An angular violet result card shows the question score, clue count, and running total when the globe reveal lands. It slides in with a short number pop and light sweep; reduced-motion users see a static card. On phones it scrolls into view. Wrong guesses never subtract points.
+Automatic reveals also earn a discovery star and score zero points. Discoveries are unique. The trail shows the ten most recent discoveries to avoid rendering 195 badges across the page. Discovery stars and total points stay in memory, survive level switches, and reset on refresh or a deliberate fresh start. A correct answer earns 10 points before any clue, then 8, 6, 4, 2, or 1 after clues one through five. An angular violet result card shows the question score, clue count, and running total when the globe reveal lands. It slides in with a short number pop and light sweep; reduced-motion users see a static card. On phones it scrolls into view. Each wrong answer after the first clue subtracts five from the question score, including an answer that is eventually revealed automatically. Three such mistakes subtract 15. The question score can be negative, and its signed value is added to the running total; wrong answers before any clue remain free. The result card shows the deduction calculation.
 
 ### Clue treasure chest
 
@@ -70,7 +70,7 @@ Easy and Medium open with the bundled animal/landmark/shape fact where available
 
 Each clue is a colorful card with a changing animal and encouragement and an illustrated treasure button. Unlocked treasure buttons replay previous clues. The read-aloud button reads the currently selected clue. “Help me, Pip!” requests the next clue early, consumes one of the same five slots, and restarts the 15-second wait. It cannot create a sixth clue or reveal the answer early after the fifth clue. The automatic reveal still gives the fifth clue 15 seconds to try.
 
-Pause, a hidden browser tab, the level picker, and open dialogs stop the countdown. Returning resumes the remaining time without subtracting the hidden/dialog interval. Resolved questions never keep counting down. Wrong answers do not change clue timing.
+Pause, a hidden browser tab, the level picker, and open dialogs stop the countdown. Returning resumes the remaining time without subtracting the hidden/dialog interval. Resolved questions never keep counting down. Wrong answers do not change clue timing. During the last five active seconds of every 15-second wait, a short click sounds once per second and the remaining seconds gain a visible highlight. The warning also covers the final answer-reveal wait. Music mute and volume settings control the clicks; pause, hidden tabs, dialogs, and resolved questions silence them.
 
 ### Animated globe reveal
 
@@ -80,9 +80,9 @@ Globe drawing uses an orthographic projection of actual longitude/latitude coord
 
 ### Music and voice
 
-Nine locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree, Frost Waltz, Dream Culture, Daily Beetle, Windswept, Crinoline Dreams, Wholesome, Porch Swing Days - slower, and Almost Bliss. The added selections favor clear melodies, calmer instrumentation, and child-friendly moods. A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a louder 55% default and a 100% maximum app volume. Speech temporarily ducks music to 16% of the chosen level. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs, and becomes quieter while speech plays. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
+Nine locally bundled instrumental recordings by Kevin MacLeod play during questions: Carefree, Frost Waltz, Dream Culture, Daily Beetle, Windswept, Crinoline Dreams, Wholesome, Porch Swing Days - slower, and Almost Bliss. The added selections favor clear melodies, calmer instrumentation, and child-friendly moods. A shuffle bag changes the recording for each question without an immediate repeat; a skip button lets a grown-up choose another. Music is enabled by default and starts after level selection, respecting browser autoplay rules. The music mute and grown-up volume controls remain, with a balanced 35% default and a 100% maximum app volume. Music ducks to 16% of the chosen level for the full duration of an utterance and returns when speech ends, errors, or is stopped. A 60-second safety timer handles browsers that omit speech events. Playback pauses for revealed answers, the picker, pause, hidden tabs, and dialogs. Playback reaches the end of a recording before advancing to another. The former procedural playlist and synthetic discovery cadence have been removed.
 
-Voice remains opt-in and uses browser speech synthesis. The header’s visible ♬ button cycles **Off → Bangla → English → Off**; it announces the chosen language when switched on. Prompts, clues, encouragement, and country reveals speak in the selected language. The question greeting and discovery announcement address the entered explorer name in both modes; Bangla pronunciation of a name entered in another script depends on the device voice. Each clue card also shows Bangla text. All 195 countries have five Bangla clue slots; the twelve special animal/landmark/shape facts have matching translations, while other clues are assembled from bundled country facts. Country names use the browser’s Bengali region names when available. English initial and three-letter name hints remain English spelling hints in the Bangla script. Automatic English narration rotates among available gentle English voices each question. Settings offer the same fixed Gentle and Clear reading styles for English and Bangla on every device; these adjust speech rate and pitch. The underlying synthesized voice still comes from the browser or device and may differ. A Bangla voice may be absent on a device, in which case the browser may use a fallback voice and pronunciation can suffer. Gentle speech uses a near-natural rate and neutral pitch; Clear speaks slightly faster and higher. Both use reduced volume. **These are synthesized device voices, not human recordings**. The clue read-aloud button still works while automatic voice is Off, reading Bangla in that state. Browsers without speech playback still have both written clue languages.
+Voice uses browser speech synthesis and starts in English when a level is chosen, using that user tap to begin mobile playback. The header’s visible ♬ button cycles **English → Bangla → Off → English**; it announces the language when switched on. Prompts, clues, encouragement, and country reveals speak in the selected language. The question greeting and discovery announcement address the entered explorer name in both modes; Bangla pronunciation of a name entered in another script depends on the device voice. Each clue card also shows Bangla text. All 195 countries have five Bangla clue slots; the twelve special animal/landmark/shape facts have matching translations, while other clues are assembled from bundled country facts. Country names use the browser’s Bengali region names when available. English initial and three-letter name hints remain English spelling hints in the Bangla script. English narration prefers one locally installed voice consistently, avoiding per-question changes in loudness and tone. Speech uses full utterance volume; device volume remains under the user's control. Settings offer the same fixed Gentle and Clear reading styles for English and Bangla on every device; these adjust speech rate and pitch. The underlying synthesized voice still comes from the browser or device and may differ. A Bangla voice may be absent on a device, in which case the browser may use a fallback voice and pronunciation can suffer. Gentle speech uses a near-natural rate and neutral pitch; Clear speaks slightly faster and higher. **These are synthesized device voices, not human recordings**. The clue read-aloud button still works while automatic voice is Off, reading Bangla in that state. Browsers without speech playback still have both written clue languages.
 
 ### Country explorer and photos
 
@@ -112,7 +112,7 @@ Country map colors use flag-inspired hues for the original twelve countries and 
 | `assets/js/app.js` | Game state, levels, shuffle, choices, answers, timing, clues, facts, explorer tabs, and audio coordination. |
 | `assets/js/data.js` | Bundled `COUNTRIES`, `WORLD`, and `GEOMETRY` data. |
 | `assets/js/globes.js` | Orthographic globe rendering, landing rotation, highlight animation, landed zoom, and country labels. |
-| `assets/js/music.js` | Bundled recording playlist and playback controls. |
+| `assets/js/music.js` | Bundled recording playlist, playback controls, and short countdown clicks. |
 | `assets/audio/` | Nine locally bundled CC BY 4.0 MP3 recordings. |
 | `assets/js/photos.js` | Country-keyed photograph metadata and credits. |
 | `assets/js/gallery.js` | Shared photo-card renderer and standalone gallery initialization. |
@@ -186,6 +186,14 @@ When changing cached browser assets, increment their `?v=` references in both HT
 - All continuous motion respects `prefers-reduced-motion`; most visual animation stops in a hidden tab, and the game clock and music pause.
 
 ## Change log
+
+### 18 October 2026 — Version 2.9.0
+
+Added five-point deductions for each wrong answer after a clue, counted across the whole question and displayed in the result calculation. Added five short countdown clicks during the last five active seconds of every clue wait and the final reveal wait, with a visible countdown highlight and existing mute, volume, pause, and visibility behavior. Updated scoring and timer checks, cache versions, package version, and this guide.
+
+### 12 October 2026 — Version 2.8.2
+
+Enabled English narration by default at level selection so a mobile tap starts speech without first finding the voice control. Kept the English voice consistent across questions, preferred a locally installed voice, and raised utterance volume to full. Music now starts at 35% and stays ducked throughout actual speech, recovering on completion, error, interruption, or pause. Updated the voice control, settings copy, cache versions, and audio regression checks. `npm test`, JavaScript syntax checks, and `git diff --check` passed. Local browser checks covered 390 px phone and 1280 px desktop widths without horizontal overflow; the in-app browser lacks speech synthesis, so audible output still needs a device check. With owner approval, deployed to the existing Vercel production project (deployment `dpl_CwwLdDRqwthBMwC35xrUkDGjGmTB`, ready). The `baby-map-game.vercel.app` alias served the updated HTML and audio scripts through `vercel curl` using Vercel's deployment-protection bypass. Direct sandbox DNS access was unavailable.
 
 ### 11 October 2026 — Version 2.8.1
 

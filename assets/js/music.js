@@ -13,7 +13,7 @@ const AdventureAudio=(()=>{
   {name:'Porch Swing Days',file:'porch-swing-days-slower.mp3'},
   {name:'Almost Bliss',file:'almost-bliss.mp3'}
  ];
- let player,enabled=true,playing=false,volume=.55,track=-1,bag=[],duckUntil=0,duckTimer;
+ let player,enabled=true,playing=false,volume=.35,track=-1,bag=[],duckUntil=0,duckTimer,speaking=false,tickContext;
  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
  function setup(){
   if(player)return true;
@@ -22,7 +22,7 @@ const AdventureAudio=(()=>{
   player.addEventListener('ended',()=>{if(playing&&enabled){select();resume()}});
   return true;
  }
- function setVolume(){if(player)player.volume=playing&&enabled?volume*(performance.now()<duckUntil?.16:1):0}
+ function setVolume(){if(player)player.volume=playing&&enabled?volume*(speaking||performance.now()<duckUntil?.16:1):0}
  function refillBag(){bag=shuffle(tracks.map((_,i)=>i).filter(i=>i!==track))}
  function select(){
   if(!bag.length)refillBag();
@@ -37,18 +37,31 @@ const AdventureAudio=(()=>{
  }
  function pause(){playing=false;if(player){player.pause();setVolume()}}
  function success(){pause()}
+ function tick(){
+  if(!enabled||!playing||!volume)return;
+  try{
+   if(!tickContext){const AudioContext=window.AudioContext||window.webkitAudioContext;if(!AudioContext)return;tickContext=new AudioContext()}
+   if(tickContext.state==='suspended')tickContext.resume().catch(()=>{});
+   const oscillator=tickContext.createOscillator(),gain=tickContext.createGain(),time=tickContext.currentTime;
+   oscillator.type='sine';oscillator.frequency.value=880;
+   gain.gain.setValueAtTime(Math.min(.12,volume*.25),time);
+   gain.gain.exponentialRampToValueAtTime(.001,time+.07);
+   oscillator.connect(gain);gain.connect(tickContext.destination);oscillator.start(time);oscillator.stop(time+.07);
+  }catch{}
+ }
  function duck(ms=5000){
   duckUntil=performance.now()+ms;clearTimeout(duckTimer);setVolume();
   duckTimer=setTimeout(()=>setVolume(),ms);
  }
  return {
   get enabled(){return enabled},
-  async unlock(){return setup()},
+  async unlock(){const ready=setup();try{const AudioContext=window.AudioContext||window.webkitAudioContext;if(AudioContext){tickContext??=new AudioContext();if(tickContext.state==='suspended')await tickContext.resume()}}catch{}return ready},
   newQuestion(){if(!setup())return;select();resume()},
   pause,resume,success,
   toggle(){enabled=!enabled;if(!enabled&&player)player.pause();else if(playing)resume();setVolume();return enabled},
   volume(value){volume=Math.max(0,Math.min(1,value));setVolume()},
-  duck,
+  speech(active){speaking=active;setVolume()},
+  duck,tick,
   skip(){if(!setup())return;select();if(playing&&enabled)resume()},
   get tracks(){return tracks.map(t=>t.name)}
  };
