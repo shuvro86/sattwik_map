@@ -6,7 +6,7 @@ vm.runInContext(fs.readFileSync('assets/js/data.js','utf8')+'\n'+fs.readFileSync
 const state=()=>vm.runInContext('({index,clueCount,remaining,resolved,stars:discovered.size,totalScore,wrongCount})',ctx);const reveal=()=>{assert.equal(typeof scheduled,'function');scheduled()};function advance(ms){now+=ms;tick()}
 assert.equal(vm.runInContext("validBirthYear('2020')",ctx),true);assert.equal(vm.runInContext("validBirthYear('20')",ctx),false);assert.equal(vm.runInContext("validBirthYear('2999')",ctx),false);
 assert.equal(els['explorer-birth-year'].children.length,121);
-const entryHtml=fs.readFileSync('index.html','utf8');assert.match(entryHtml,/<select id="voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.match(entryHtml,/<select id="bangla-voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.ok(entryHtml.indexOf('id="profile-settings"')<entryHtml.indexOf('Start exploring ➜'));assert.match(entryHtml,/<input id="explorer-name"[^>]*maxlength="15"[^>]*required/);assert.match(entryHtml,/<select id="explorer-birth-year"[^>]*required/);assert.match(entryHtml,/<button[^>]*id="profile-settings"[^>]*>⚙ Adjust Settings<\/button>/);
+const entryHtml=fs.readFileSync('index.html','utf8');assert.match(entryHtml,/<select id="voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.match(entryHtml,/<select id="bangla-voice-choice"[^>]*><option value="gentle">Gentle<\/option><option value="clear">Clear<\/option><\/select>/);assert.match(entryHtml,/id="bangla-voice-status"/);assert.match(entryHtml,/id="bangla-voice-sample"/);assert.ok(entryHtml.indexOf('id="profile-settings"')<entryHtml.indexOf('Start exploring ➜'));assert.match(entryHtml,/<input id="explorer-name"[^>]*maxlength="15"[^>]*required/);assert.match(entryHtml,/<select id="explorer-birth-year"[^>]*required/);assert.match(entryHtml,/<button[^>]*id="profile-settings"[^>]*>⚙ Adjust Settings<\/button>/);
 assert.match(entryHtml,/<section id="marking-rules"[\s\S]*?8 − \(3 × 3\) = −1[\s\S]*?<\/section>/);
 assert.match(entryHtml,/3 points for every wrong answer/);
 assert.match(entryHtml,/An automatic reveal starts at <strong>0 points<\/strong>; wrong-answer deductions still apply/);
@@ -69,11 +69,13 @@ vm.runInContext(`discovered.clear();chooseLevel('high');const seen=new Set();for
 vm.runInContext(`chooseLevel('medium');paused=true;clue();if(clueCount)throw Error('paused clue');paused=false;for(let n=0;n<5;n++)$('early-clue').onclick();if(clueCount!==5||resolved)throw Error('manual hint cap');$('early-clue').onclick();if(clueCount!==5||resolved)throw Error('extra manual clue')`,ctx);
 advance(14999);assert.equal(state().resolved,false);advance(1);assert.equal(state().resolved,true);
 // Fixed reading-style lists remain the same across devices; underlying voices vary.
-const spoken=[];let cancelled=0;ctx.window.speechSynthesis={getVoices:()=>[{name:'Albert',lang:'en-US'},{name:'Samantha',lang:'en-US'},{name:'Grandma',lang:'en-US'},{name:'Junior',lang:'en-US'}],cancel(){cancelled++},speak:u=>spoken.push(u)};
+const spoken=[];let cancelled=0;ctx.window.speechSynthesis={getVoices:()=>[{name:'Albert',lang:'en-US'},{name:'Samantha',lang:'en-US'},{name:'Grandma',lang:'en-US'},{name:'Junior',lang:'en-US'},{name:'Piya',lang:'bn-IN'}],cancel(){cancelled++},speak:u=>spoken.push(u)};
 ctx.SpeechSynthesisUtterance=function(text){this.text=text};
 assert.equal(vm.runInContext('voiceMode',ctx),'en');
 vm.runInContext("setExplorerName('Maya');voiceMode='en';chooseLevel('easy')",ctx);assert.match(spoken.at(-1).text,/Maya/);assert.doesNotMatch(spoken.at(-1).text,/Sattwik/);
-vm.runInContext("voiceMode='bn';chooseLevel('medium')",ctx);assert.match(spoken.at(-1).text,/Maya/);assert.equal(spoken.at(-1).lang,'bn-BD');
+vm.runInContext("voiceMode='bn';chooseLevel('medium')",ctx);assert.match(spoken.at(-1).text,/Maya/);assert.equal(spoken.at(-1).lang,'bn-IN');
+vm.runInContext("setExplorerName('Sattwik');voiceMode='bn';chooseLevel('easy')",ctx);assert.match(spoken.at(-1).text,/সাত্ত্বিক/);assert.doesNotMatch(spoken.at(-1).text,/Sattwik/);
+vm.runInContext("setExplorerName('Maya')",ctx);
 vm.runInContext("voiceMode='en';speak('Hello, Sattwik!')",ctx);
 assert.equal(spoken.at(-1).voice.name,'Samantha');assert.equal(spoken.at(-1).rate,.96);assert.equal(spoken.at(-1).pitch,1);assert.equal(spoken.at(-1).volume,1);assert.equal(speechDucked,true);
 spoken.at(-1).onend();assert.equal(speechDucked,false);
@@ -86,6 +88,13 @@ ctx.window.speechSynthesis.getVoices=()=>[{name:'Albert',lang:'en-US'},{name:'Sa
 els['bangla-voice-choice'].value='gentle';
 vm.runInContext("voiceMode='bn';speak('Hello!','হ্যালো!')",ctx);
 assert.equal(spoken.at(-1).text,'হ্যালো!');assert.equal(spoken.at(-1).lang,'bn-BD');assert.equal(spoken.at(-1).voice.name,'Maya');
+ctx.window.speechSynthesis.getVoices=()=>[{name:'Maya',lang:'bn-BD'},{name:'Piya',lang:'bn-IN'}];
+vm.runInContext("speak('','আবার বলি',true,'bn')",ctx);assert.equal(spoken.at(-1).voice.name,'Piya');assert.equal(spoken.at(-1).rate,.96);
+els['bangla-voice-sample'].onclick();assert.equal(spoken.at(-1).voice.name,'Piya');assert.match(spoken.at(-1).text,/দেশগুলো/);
+vm.runInContext('updateBanglaVoiceStatus()',ctx);assert.match(els['bangla-voice-status'].textContent,/Piya/);
+ctx.window.speechSynthesis.getVoices=()=>[{name:'Samantha',lang:'en-US'}];const missingVoiceCount=spoken.length;
+vm.runInContext("speak('','হ্যালো',true,'bn')",ctx);assert.equal(spoken.length,missingVoiceCount);assert.match(els['bangla-voice-status'].textContent,/No Bangla voice/);
+ctx.window.speechSynthesis.getVoices=()=>[{name:'Samantha',lang:'en-US'},{name:'Maya',lang:'bn-BD'}];
 vm.runInContext("voiceMode='en';speak('Hello!','হ্যালো!')",ctx);assert.equal(spoken.at(-1).text,'Hello!');assert.equal(spoken.at(-1).voice.name,'Samantha');
 vm.runInContext("voiceMode='off'",ctx);const before=spoken.length;vm.runInContext("speak('Automatic','স্বয়ংক্রিয়')",ctx);assert.equal(spoken.length,before);
 vm.runInContext("speak('Replay','আবার শোনো',true)",ctx);assert.equal(spoken.at(-1).text,'আবার শোনো');
